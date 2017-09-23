@@ -1,0 +1,13 @@
+<ul *ngIf="!loading; else loadingMsg">
+  <li *ngFor="let user of data.getUsers">
+    <div>{{user._id}}</div>
+    <div>{{user.firstName}}</div>
+    <div>{{user.lastName}}</div>
+    <div>{{user.email}}</div>
+    <div>{{user.password}}</div>
+  </li>
+</ul>
+
+<ng-template #loadingMsg>
+  Loading your posts...
+</ng-template>
