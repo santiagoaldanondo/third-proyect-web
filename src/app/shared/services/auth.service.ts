@@ -1,73 +1,109 @@
-// import { User } from './../models/user.model';
-// import { Http, Headers, Response, RequestOptions } from '@angular/http';
-// import { Injectable } from '@angular/core';
-// import { Observable } from 'rxjs/Observable';
-// import 'rxjs/add/operator/map';
-// import 'rxjs/add/operator/catch';
-// import 'rxjs/add/observable/throw';
 
-// import { Apollo } from 'apollo-angular';
-// import gql from 'graphql-tag';
+import { Http, Headers, Response, RequestOptions } from '@angular/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 
-// @Injectable()
-// export class AuthService {
-//   private baseUrl = 'http://localhost:3000/api/graphql';
-//   private headers = new Headers({ 'Content-Type': 'application/json' });
-//   private options = new RequestOptions({ headers: this.headers, withCredentials: true });
+import { Apollo } from 'apollo-angular';
+import graphqlTag from 'graphql-tag';
 
-//   private user: User
+import { User } from './../models/user.model';
+import { Account } from './../models/account.model';
 
-//   constructor(private http: Http) {
-//     this.user = JSON.parse(localStorage.getItem('current_user'))
-//   }
+@Injectable()
+export class AuthService {
 
-//   // isAuthenticated(): boolean {
-//   //   return (this.user) ? true : false;
-//   // }
+    private token: String
 
-//   authenticate(user: User): User {
-//     this.user = user;
-//     localStorage.setItem('current_user', JSON.stringify(this.user))
-//     return this.user
-//   }
+    constructor(private apollo: Apollo) {
+        this.token = localStorage.getItem("JWT_TOKEN")
+    }
 
-//   // deAuthenticate(): void {
-//   //   this.user = undefined;
-//   //   localStorage.removeItem('current_user')
-//   // }
+    isAuthenticated(): boolean {
+        return (this.token) ? true : false;
+    }
 
-//   // login(user: User): Observable<User | string> {
-//   //   const data: Object = {
-//   //     username: user.username,
-//   //     password: user.password
-//   //   };
-//   //   return this.http.post(`${this.baseUrl}/login`, JSON.stringify(data), this.options)
-//   //     .map((res: Response) => this.authenticate(res.json()))
-//   //     .catch(this.handleError);
-//   // }
+    authenticate(data: any): void {
+        const token = data.data.login
+        this.token = token
+        localStorage.setItem("JWT_TOKEN", token)
+    }
 
-//   // register(user: User): Observable<User | string> {
-//   //   const data: Object = {
-//   //     email: user.email,
-//   //     password: user.password
-//   //   };
-//   //   return this.http.post(`${this.baseUrl}/register`, JSON.stringify(data), this.options)
-//   //     .map((res: Response) => this.authenticate(res.json()))
-//   //     .catch(this.handleError);
-//   // }
+    deAuthenticate(): void {
+        this.token = undefined;
+        localStorage.removeItem("JWT_TOKEN")
+    }
 
-//   // logout(): Observable<boolean | string> {
-//   //   return this.http.post(`${this.baseUrl}/logout`, null, this.options)
-//   //     .map((res: Response) => {
-//   //       this.deAuthenticate()
-//   //       return res.status === 204
-//   //     })
-//   //     .catch(this.handleError);
-//   // }
+    login(user: User): void {
+        const mutation = graphqlTag`mutation(
+            $email: String!,
+            $password: String!,
+          ) {
+              login(
+                email: $email,
+                password: $password,
+              )
+            }`;
+        this.apollo.mutate({
+            mutation: mutation,
+            variables: {
+                email: user.email,
+                password: user.password,
+            }
+        }).subscribe(data => {
+            this.authenticate(data)
+        });
+    }
 
-//   private handleError(error: Response | any): Observable<string> {
-//     console.error(error);
-//     return Observable.throw(error.json().message);
-//   }
+    register(user: User, account: Account): void {
+        const mutation = graphqlTag`mutation(
+        $firstName: String!,
+        $lastName: String!,
+        $email: String!,
+        $password: String!,
+        $description: String!
+      ) {
+          register(
+            firstName: $firstName,
+            lastName: $lastName,
+            email: $email,
+            password: $password,
+            description: $description
+          ) {
+            firstName
+            lastName
+            email
+            password
+          }
+        }`;
+        this.apollo.mutate({
+            mutation: mutation,
+            variables: {
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email,
+                password: user.password,
+                description: account.description
+            }
+        }).subscribe(data => {
+            console.log('Created new account and owner user!', data);
+        });
+    }
 
-// }
+    //   // logout(): Observable<boolean | string> {
+    //   //   return this.http.post(`${this.baseUrl}/logout`, null, this.options)
+    //   //     .map((res: Response) => {
+    //   //       this.deAuthenticate()
+    //   //       return res.status === 204
+    //   //     })
+    //   //     .catch(this.handleError);
+    //   // }
+
+    //   private handleError(error: Response | any): Observable<string> {
+    //     console.error(error);
+    //     return Observable.throw(error.json().message);
+    //   }
+
+}
