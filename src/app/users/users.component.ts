@@ -24,7 +24,6 @@ export class UsersComponent implements OnInit {
         firstName
         lastName
         email
-        password  
       }
     }`;
 

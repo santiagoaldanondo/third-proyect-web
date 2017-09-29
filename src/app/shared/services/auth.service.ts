@@ -26,7 +26,7 @@ export class AuthService {
     }
 
     authenticate(data: any): void {
-        const token = data.data.login
+        const token = data
         this.token = token
         localStorage.setItem("JWT_TOKEN", token)
     }
@@ -53,7 +53,7 @@ export class AuthService {
                 password: user.password,
             }
         }).subscribe(data => {
-            this.authenticate(data)
+            this.authenticate(JSON.parse(JSON.stringify(data)).data.login)
         });
     }
 
@@ -71,12 +71,7 @@ export class AuthService {
             email: $email,
             password: $password,
             description: $description
-          ) {
-            firstName
-            lastName
-            email
-            password
-          }
+          ) 
         }`;
         this.apollo.mutate({
             mutation: mutation,
@@ -88,7 +83,7 @@ export class AuthService {
                 description: account.description
             }
         }).subscribe(data => {
-            console.log('Created new account and owner user!', data);
+            this.authenticate(JSON.parse(JSON.stringify(data)).data.register)
         });
     }
 
