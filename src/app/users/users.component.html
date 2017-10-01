@@ -1,11 +1,18 @@
-<ul *ngIf="!loading; else loadingMsg">
-  <li *ngFor="let user of data.getUsers">
-    <div>{{user._id}}</div>
-    <div>{{user.firstName}}</div>
-    <div>{{user.lastName}}</div>
-    <div>{{user.email}}</div>
-  </li>
-</ul>
+<h1>List of users in your account</h1>
+
+<table *ngIf="!loading; else loadingMsg">
+  <thead>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>email</th>
+    <th></th>
+  </thead>
+  <tr *ngFor="let user of users">
+    <td>{{user.firstName}}</td>
+    <td>{{user.lastName}}</td>
+    <td>{{user.email}}</td>
+  </tr>
+</table>
 
 <ng-template #loadingMsg>
   Loading your posts...

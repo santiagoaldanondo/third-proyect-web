@@ -3,9 +3,6 @@ import { User } from './../shared/models/user.model';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './../shared/services/auth.service'
 
-import { Apollo } from 'apollo-angular';
-import graphqlTag from 'graphql-tag';
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -15,12 +12,15 @@ export class LoginComponent implements OnInit {
   user: User = new User();
   error: string;
 
-  constructor(private apollo: Apollo, private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
   }
 
   onSubmitLogin() {
-    this.authService.login(this.user)
+    this.authService.login(this.user).subscribe(data => {
+      this.authService.authenticate(JSON.parse(JSON.stringify(data)).data.login)
+      this.router.navigate(['/account']);
+    });
   }
 }

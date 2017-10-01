@@ -1,8 +1,7 @@
-/**
- * Created by Tobia on 10/04/17.
- */
+import { environment } from './environments/environment';
+
 const config = {
-  url: 'http://localhost:3000/graphql',
+  url: environment.apiUrl,
 };
 
 export default config;

@@ -1,0 +1,8 @@
+li {
+  display: inline-block;
+  margin: 10px;
+}
+
+.nav-child {
+  position: relative;
+}

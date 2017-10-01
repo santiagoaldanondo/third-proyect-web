@@ -1,0 +1,15 @@
+<nav>
+  <ul>
+    <li *ngFor="let mainItem of mainItems">
+      <a [routerLink]="[mainItem.path]">{{mainItem.title}}</a>
+    </li>
+    <li class="nav-item dropdown">
+      <a (click)="toggleAdmin()">Admin</a>
+      <div class="nav-child" *ngFor="let adminItem of adminItems" [hidden]="isCollapsed">
+        <a class="dropdown-item" [routerLink]="[adminItem.path]" (click)="toggleAdmin()">
+          {{adminItem.title}}
+        </a>
+      </div>
+    </li>
+  </ul>
+</nav>

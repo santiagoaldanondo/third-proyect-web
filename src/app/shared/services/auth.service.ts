@@ -2,9 +2,6 @@
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
 
 import { Apollo } from 'apollo-angular';
 import graphqlTag from 'graphql-tag';
@@ -29,6 +26,7 @@ export class AuthService {
         const token = data
         this.token = token
         localStorage.setItem("JWT_TOKEN", token)
+
     }
 
     deAuthenticate(): void {
@@ -36,7 +34,7 @@ export class AuthService {
         localStorage.removeItem("JWT_TOKEN")
     }
 
-    login(user: User): void {
+    login(user: User): Observable<any> {
         const mutation = graphqlTag`mutation(
             $email: String!,
             $password: String!,
@@ -46,18 +44,16 @@ export class AuthService {
                 password: $password,
               )
             }`;
-        this.apollo.mutate({
+        return this.apollo.mutate({
             mutation: mutation,
             variables: {
                 email: user.email,
                 password: user.password,
             }
-        }).subscribe(data => {
-            this.authenticate(JSON.parse(JSON.stringify(data)).data.login)
-        });
+        })
     }
 
-    register(user: User, account: Account): void {
+    register(user: User, account: Account): Observable<any> {
         const mutation = graphqlTag`mutation(
         $firstName: String!,
         $lastName: String!,
@@ -73,7 +69,7 @@ export class AuthService {
             description: $description
           ) 
         }`;
-        this.apollo.mutate({
+        return this.apollo.mutate({
             mutation: mutation,
             variables: {
                 firstName: user.firstName,
@@ -82,9 +78,7 @@ export class AuthService {
                 password: user.password,
                 description: account.description
             }
-        }).subscribe(data => {
-            this.authenticate(JSON.parse(JSON.stringify(data)).data.register)
-        });
+        })
     }
 
     //   // logout(): Observable<boolean | string> {

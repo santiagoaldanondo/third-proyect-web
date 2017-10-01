@@ -1,8 +1,10 @@
-import { User } from './../shared/models/user.model';
 import { Component, OnInit } from '@angular/core';
 
 import { Apollo } from 'apollo-angular';
 import graphqlTag from 'graphql-tag';
+
+import { UserService } from './../shared/services/user.service';
+import { User } from './../shared/models/user.model';
 
 @Component({
   selector: 'app-users',
@@ -12,26 +14,15 @@ import graphqlTag from 'graphql-tag';
 export class UsersComponent implements OnInit {
 
   loading = true;
-  data: any
+  users: Array<User>
 
-  constructor(private apollo: Apollo) { }
+  constructor(private apollo: Apollo, private userService: UserService) { }
 
   ngOnInit() {
-
-    const getUsers = graphqlTag`query {
-      getUsers {
-        _id
-        firstName
-        lastName
-        email
-      }
-    }`;
-
-    this.apollo.query({
-      query: getUsers
-    }).subscribe(({ data, loading }) => {
-      this.data = data;
+    this.userService.getUsers().subscribe(({ data, loading }) => {
+      this.users = data.getUsers;
       this.loading = loading;
     });
+
   }
 }

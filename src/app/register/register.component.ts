@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Apollo } from 'apollo-angular';
-import graphqlTag from 'graphql-tag';
 
 import { User } from './../shared/models/user.model';
 import { Account } from './../shared/models/account.model';
@@ -17,12 +15,15 @@ export class RegisterComponent implements OnInit {
   account: Account = new Account();
   error: string;
 
-  constructor(private apollo: Apollo, private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
   }
 
   onSubmitRegister() {
-    this.authService.register(this.user, this.account)
+    this.authService.register(this.user, this.account).subscribe(data => {
+      this.authService.authenticate(JSON.parse(JSON.stringify(data)).data.register)
+      this.router.navigate(['/account']);
+    });
   }
 }
