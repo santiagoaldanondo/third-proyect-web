@@ -10,7 +10,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "ng build --aot -prod"
+    "postinstall": "ng build --aot -prod --base-href https://third-proyect-web.herokuapp.com/"
   },
   "private": true,
   "dependencies": {
