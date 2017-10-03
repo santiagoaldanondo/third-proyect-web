@@ -1,7 +1,8 @@
 import { environment } from './environments/environment';
 
 const config = {
-  url: environment.apiUrl,
+  apiUrl: environment.apiUrl,
+  wsUrl: environment.wsUrl
 };
 
 export default config;

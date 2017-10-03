@@ -2,10 +2,10 @@ import config from '../config';
 import { ApolloClient, createNetworkInterface } from 'apollo-client';
 
 import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-transport-ws';
-const wsClient = new SubscriptionClient('ws://localhost:8080');
+const wsClient = new SubscriptionClient(config.wsUrl);
 
 const networkInterface = createNetworkInterface({
-  uri: config.url,
+  uri: config.apiUrl,
   opts: {
     credentials: 'same-origin',
   },

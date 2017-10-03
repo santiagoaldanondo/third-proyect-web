@@ -22,6 +22,8 @@ export class AuthService {
     }
 
     authUser(): User {
+        let decoded = jwtDecode(this.token);
+        this.user = decoded.authUser
         return this.user
     }
 
@@ -33,8 +35,6 @@ export class AuthService {
         const token = data
         this.token = token
         localStorage.setItem("JWT_TOKEN", token)
-        var decoded = jwtDecode(this.token);
-        this.user = decoded.authUser
     }
 
     deAuthenticate(): void {
