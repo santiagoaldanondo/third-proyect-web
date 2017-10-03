@@ -1,8 +1,14 @@
 import config from '../config';
 import { ApolloClient, createNetworkInterface } from 'apollo-client';
 
+import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-transport-ws';
+const wsClient = new SubscriptionClient('ws://localhost:8080');
+
 const networkInterface = createNetworkInterface({
-  uri: config.url
+  uri: config.url,
+  opts: {
+    credentials: 'same-origin',
+  },
 });
 networkInterface.use([
   {
@@ -18,10 +24,15 @@ networkInterface.use([
   }
 ]);
 
-const apolloClient = new ApolloClient({
+const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(
+  networkInterface,
+  wsClient,
+);
+
+const client = new ApolloClient({
   networkInterface
 });
 
-export function client(): ApolloClient {
-  return apolloClient;
+export function apolloClient(): ApolloClient {
+  return client;
 }

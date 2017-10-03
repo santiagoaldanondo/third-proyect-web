@@ -13,8 +13,10 @@ import { User } from './../shared/models/user.model';
 })
 export class UsersComponent implements OnInit {
 
-  loading = true;
+  loading = true
   users: Array<User>
+  isEditing: Boolean = false
+  newUser: User = new User;
 
   constructor(private apollo: Apollo, private userService: UserService) { }
 
@@ -23,6 +25,16 @@ export class UsersComponent implements OnInit {
       this.users = data.getUsers;
       this.loading = loading;
     });
+  }
 
+  toggleEdit() {
+    this.isEditing = !this.isEditing;
+  }
+
+  trackByUser(index: number, user: User): string { return user._id; }
+
+  onSubmitAddToAccount() {
+    this.userService.addToAccount(this.newUser).subscribe(data => { })
+    this.ngOnInit();
   }
 }

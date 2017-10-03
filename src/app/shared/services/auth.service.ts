@@ -9,13 +9,20 @@ import graphqlTag from 'graphql-tag';
 import { User } from './../models/user.model';
 import { Account } from './../models/account.model';
 
+import jwtDecode from 'jwt-decode';
+
 @Injectable()
 export class AuthService {
 
     private token: String
+    private user: User
 
     constructor(private apollo: Apollo) {
         this.token = localStorage.getItem("JWT_TOKEN")
+    }
+
+    authUser(): User {
+        return this.user
     }
 
     isAuthenticated(): boolean {
@@ -26,7 +33,8 @@ export class AuthService {
         const token = data
         this.token = token
         localStorage.setItem("JWT_TOKEN", token)
-
+        var decoded = jwtDecode(this.token);
+        this.user = decoded.authUser
     }
 
     deAuthenticate(): void {

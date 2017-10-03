@@ -6,7 +6,7 @@ import { NgModule } from '@angular/core';
 import { ApolloModule } from 'apollo-angular';
 
 import './rxjs.operators'
-import { client } from './client';
+import { apolloClient } from './client';
 
 import { AppComponent } from './app.component';
 import { UsersComponent } from './users/users.component';
@@ -63,7 +63,7 @@ const routes: Routes = [
     FormsModule,
     HttpModule,
     RouterModule.forRoot(routes),
-    ApolloModule.forRoot(client)
+    ApolloModule.forRoot(apolloClient)
   ],
   providers: [AuthService, UserService],
   bootstrap: [AppComponent]

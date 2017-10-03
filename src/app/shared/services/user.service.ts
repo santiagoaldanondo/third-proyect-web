@@ -35,12 +35,19 @@ export class UserService {
       $firstName: String!,
       $lastName: String!,
       $email: String!,
+      $password: String!
     ) {
-        register(
+      addToAccount(
           firstName: $firstName,
           lastName: $lastName,
           email: $email,
-        ) 
+          password: $password
+        ) {
+          _id
+          firstName
+          lastName
+          email          
+        }
       }`;
     return this.apollo.mutate({
       mutation: mutation,
@@ -48,6 +55,7 @@ export class UserService {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
+        password: user.password
       }
     })
   }
