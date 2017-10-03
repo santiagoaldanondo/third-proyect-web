@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://citayfactura.es/graphql',
+  apiUrl: 'http://citayfactura.es/api/graphql',
 };
