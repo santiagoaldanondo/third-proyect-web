@@ -2,7 +2,7 @@
 
 <a (click)="toggleEdit()"> Add a new user to the account </a>
 
-<form (ngSubmit)="onSubmitAddToAccount()" #addToAccountForm="ngForm">
+<form (ngSubmit)="onSubmitAddToAccount(addToAccountForm)" #addToAccountForm="ngForm">
   <table *ngIf="!loading; else loadingMsg">
     <thead>
       <th>First Name</th>
@@ -21,7 +21,7 @@
         <a (click)="toggleEdit()"> X </a>
       </td>
     </tr>
-    <tr *ngFor="let user of users; trackBy: trackByUsers">
+    <tr *ngFor="let user of users">
       <td>{{user.firstName}}</td>
       <td>{{user.lastName}}</td>
       <td>{{user.email}}</td>

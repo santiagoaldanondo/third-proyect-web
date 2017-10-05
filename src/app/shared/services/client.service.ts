@@ -33,5 +33,68 @@ export class ClientService {
     })
   }
 
+  createClient(client: Client): Observable<any> {
+    const mutation = graphqlTag`mutation(
+      $firstName: String!,
+      $lastName: String!,
+      $email: email,
+      $phone: phone,
+      $insuranceNumber: insuranceNumber,
+      $insurance: insurance
+    ) {
+        updateUser(
+          firstName: $firstName,
+          lastName: $lastName,
+          email: $email,
+          phone: $phone,
+          insuranceNumber: $insuranceNumber,
+          insurance: $insurance
+        )
+      }`;
+    return this.apollo.mutate({
+      mutation: mutation,
+      variables: {
+        firstName: client.firstName,
+        lastName: client.lastName,
+        email: client.email,
+        phone: client.phone,
+        insuranceNumber: client.insuranceNumber,
+        insurance: client.insurance,
+      }
+    })
+  }
+
+  updateClient(client: Client): Observable<any> {
+    const mutation = graphqlTag`mutation(
+      $_id: String!,
+      $firstName: String!,
+      $lastName: String!,
+      $email: email,
+      $phone: phone,
+      $insuranceNumber: insuranceNumber,
+      $insurance: insurance
+    ) {
+        updateUser(
+          _id: $_id;
+          firstName: $firstName,
+          lastName: $lastName,
+          email: $email,
+          phone: $phone,
+          insuranceNumber: $insuranceNumber,
+          insurance: $insurance
+        )
+      }`;
+    return this.apollo.mutate({
+      mutation: mutation,
+      variables: {
+        firstName: client.firstName,
+        lastName: client.lastName,
+        email: client.email,
+        phone: client.phone,
+        insuranceNumber: client.insuranceNumber,
+        insurance: client.insurance,
+      }
+    })
+  }
 
 }
