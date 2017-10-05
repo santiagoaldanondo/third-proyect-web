@@ -10,7 +10,6 @@ import { ROUTES, MenuType } from './navbar-routes.config';
 export class NavbarComponent implements OnInit {
   public mainItems: any[];
   public adminItems: any[];
-  isCollapsed = true;
 
   constructor() {
     this.mainItems = ROUTES.filter(menuItem => menuItem.menuType === MenuType.MAIN);
@@ -19,7 +18,4 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() { }
 
-  public toggleAdmin(): void {
-    this.isCollapsed = !this.isCollapsed
-  }
 }

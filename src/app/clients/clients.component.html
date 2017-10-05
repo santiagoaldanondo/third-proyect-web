@@ -1,3 +1,35 @@
-<p>
-  clients works!
-</p>
+<h1>List of clients in your account</h1>
+
+<a (click)="toggleEdit()"> Add a new client to the account </a>
+
+<form (ngSubmit)="onSubmitAddToAccount(addToAccountForm)" #addToAccountForm="ngForm">
+  <table *ngIf="!loading; else loadingMsg">
+    <thead>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>email</th>
+      <th>Password</th>
+      <th></th>
+    </thead>
+    <tr [hidden]="!isEditing">
+      <td><input type="text" name="firstName" [(ngModel)]="newClient.firstName" required></td>
+      <td><input type="text" name="lastName" [(ngModel)]="newClient.lastName" required></td>
+      <td><input type="text" name="email" [(ngModel)]="newClient.email" required></td>
+      <td><input type="password" name="password" [(ngModel)]="newClient.password" required></td>
+      <td>
+        <button type="submit" [disabled]="!addToAccountForm.valid"> Save </button>
+        <a (click)="toggleEdit()"> X </a>
+      </td>
+    </tr>
+    <tr *ngFor="let client of clients">
+      <td>{{client.firstName}}</td>
+      <td>{{client.lastName}}</td>
+      <td>{{client.email}}</td>
+      <td></td>
+    </tr>
+  </table>
+</form>
+
+<ng-template #loadingMsg>
+  Loading...
+</ng-template>

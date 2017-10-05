@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { UserService } from './../shared/services/user.service';
 import { User } from './../shared/models/user.model';
@@ -15,7 +15,7 @@ export class UsersComponent implements OnInit {
   isEditing: Boolean = false
   newUser: User = new User();
 
-  constructor(private userService: UserService, private ngZone: NgZone) { }
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
     this.loadUsers()
@@ -37,9 +37,6 @@ export class UsersComponent implements OnInit {
   onSubmitAddToAccount(addToAccountForm) {
     this.userService.addToAccount(this.newUser).subscribe(data => {
       this.loadUsers()
-      this.ngZone.run(() => {
-        console.log('enabled time travel');
-      });
       this.toggleEdit()
       addToAccountForm.reset()
       window.location.reload()

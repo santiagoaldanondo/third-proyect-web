@@ -21,9 +21,11 @@ import { TimetablesComponent } from './timetables/timetables.component';
 import { TreatmentsComponent } from './treatments/treatments.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ProfileComponent } from './profile/profile.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AuthService } from './shared/services/auth.service';
 import { UserService } from './shared/services/user.service';
+import { ClientService } from './shared/services/client.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -63,9 +65,10 @@ const routes: Routes = [
     FormsModule,
     HttpModule,
     RouterModule.forRoot(routes),
-    ApolloModule.forRoot(apolloClient)
+    ApolloModule.forRoot(apolloClient),
+    NgbModule.forRoot()
   ],
-  providers: [AuthService, UserService],
+  providers: [AuthService, UserService, ClientService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

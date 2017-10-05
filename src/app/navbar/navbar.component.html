@@ -1,15 +1,12 @@
-<nav>
-  <ul>
-    <li *ngFor="let mainItem of mainItems">
-      <a [routerLink]="[mainItem.path]">{{mainItem.title}}</a>
-    </li>
-    <li class="nav-item dropdown">
-      <a (click)="toggleAdmin()">Admin</a>
-      <div class="nav-child" *ngFor="let adminItem of adminItems" [hidden]="isCollapsed">
-        <a class="dropdown-item" [routerLink]="[adminItem.path]" (click)="toggleAdmin()">
-          {{adminItem.title}}
-        </a>
-      </div>
-    </li>
-  </ul>
+<nav class="main-nav row">
+  <button *ngFor="let mainItem of mainItems" [routerLink]="[mainItem.path]" ngbButton class="fixedwidth btn-primary">
+      {{mainItem.title}}
+    </button>
+  <div ngbDropdown>
+    <button class="fixedwidth btn-primary" id="dropdownConfig" ngbDropdownToggle>Admin</button>
+    <div class="fixedwidth" ngbDropdownMenu aria-labelledby="dropdownConfig">
+      <button *ngFor="let adminItem of adminItems" class="dropdown-item fixedwidth btn-primary" [routerLink]="[adminItem.path]">{{adminItem.title}}</button>
+    </div>
+  </div>
 </nav>
+<div class="clearfix"></div>

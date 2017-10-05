@@ -1,8 +1,17 @@
-li {
-  display: inline-block;
-  margin: 10px;
+.right {
+    float: right;
 }
 
-.nav-child {
-  position: relative;
+.clearfix {
+    clear: both;
+}
+
+.main-nav {
+    background-color: #007bff;
+    width: 100%
+}
+
+.fixedwidth {
+    min-width: 150px;
+    max-width: 150px;
 }
