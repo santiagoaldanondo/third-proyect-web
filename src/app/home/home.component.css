@@ -1,0 +1,35 @@
+.home-container {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    width: 100%;
+    background: linear-gradient(to bottom, #007bff, #008eff)
+}
+
+.home-title {
+    color: #ccddff;
+    margin: 20vh auto;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bolder;
+}
+
+.links-container {
+    color: #007bff;
+    margin: 20vh auto;
+    width: 100px;
+}
+
+.link {
+    display: block;
+    color: #007bff;
+    font-weight: bold;
+    width: 140px;
+    height: 60px;
+    margin: 10px auto;
+    background: linear-gradient(to bottom, #ccddee, #aaccdd);
+    border: 3px solid #cccccc;
+    border-radius: 4px;
+}
