@@ -2,7 +2,7 @@
 
 <a (click)="toggleEdit()"> Add a new client to the account </a>
 
-<form (ngSubmit)="onSubmitAddToAccount(addToAccountForm)" #addToAccountForm="ngForm">
+<form (ngSubmit)="onSubmitCreateClient(CreateClientAccountForm)" #CreateClientAccountForm="ngForm">
   <table *ngIf="!loading; else loadingMsg">
     <thead>
       <th>First Name</th>
@@ -17,7 +17,7 @@
       <td><input type="text" name="email" [(ngModel)]="newClient.email" required></td>
       <td><input type="password" name="password" [(ngModel)]="newClient.password" required></td>
       <td>
-        <button type="submit" [disabled]="!addToAccountForm.valid"> Save </button>
+        <button type="submit" [disabled]="!CreateClientAccountForm.valid"> Save </button>
         <a (click)="toggleEdit()"> X </a>
       </td>
     </tr>
