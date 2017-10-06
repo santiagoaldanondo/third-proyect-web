@@ -60,6 +60,32 @@ export class UserService {
     })
   }
 
+  updateUser(user: User): Observable<any> {
+    console.log(user)
+    const mutation = graphqlTag`mutation(
+      $_id: String!
+      $firstName: String!,
+      $lastName: String!,
+      $email: String!
+    ) {
+        updateUser(
+          _id: $_id,
+          firstName: $firstName,
+          lastName: $lastName,
+          email: $email
+        ) 
+      }`;
+    return this.apollo.mutate({
+      mutation: mutation,
+      variables: {
+        _id: user._id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email
+      }
+    })
+  }
+
   resetPassword(oldPassword, newPassword): Observable<any> {
     const mutation = graphqlTag`mutation(
       $oldPassword: String!,
@@ -75,26 +101,6 @@ export class UserService {
       variables: {
         oldPassword: oldPassword,
         newPassword: newPassword,
-      }
-    })
-  }
-
-  updateUser(user: User): Observable<any> {
-    const mutation = graphqlTag`mutation(
-      $firstName: String!,
-      $lastName: String!,
-    ) {
-        updateUser(
-          firstName: $firstName,
-          lastName: $lastName,
-        )
-      }`;
-    return this.apollo.mutate({
-      mutation: mutation,
-      variables: {
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email
       }
     })
   }

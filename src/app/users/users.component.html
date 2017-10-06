@@ -1,6 +1,8 @@
 <h1 class="component-title">List of users in your account</h1>
 
-<button class="button-modal btn btn-lg btn-outline-primary" (click)="open(content)">Add new user</button>
+<button class="button-modal btn btn-lg btn-outline-primary" (click)="open(modalCreate)">Add new user</button>
+
+<div class="clearfix"></div>
 
 <table *ngIf="!loading; else loadingMsg" class="table table-striped" #mf="mfDataTable" [mfRowsOnPage]="10" [mfData]="(users | filter:'firstName':patternFirstName | filter:'lastName':patternLastName | filter:'email':patternEmail)">
   <thead>

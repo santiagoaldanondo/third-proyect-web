@@ -1,16 +1,56 @@
-<form (ngSubmit)="onSubmitUpdate()" #updateForm="ngForm">
-  <div>
-    <label for="firstName">First Name: </label>
-    <input type="text" name="firstName" [(ngModel)]="user.firstName" required>
+<h1 class="component-title">Your profile</h1>
+
+<button class="button-modal btn btn-lg btn-outline-primary" (click)="open(modalUpdate)">Update user info</button>
+<button class="button-modal btn btn-lg btn-outline-primary" (click)="open(modalResetPassword)">Reset password</button>
+
+<div class="clearfix"></div>
+
+<p class="component-text">First name: {{user.firstName}}</p>
+<p class="component-text">Last name: {{user.lastName}}</p>
+<p class="component-text">Email: {{user.email}}</p>
+
+
+<ng-template #modalUpdate let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Update user info</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
   </div>
-  <div>
-    <label for="lastName">Last Name: </label>
-    <input type="text" name="lastName" [(ngModel)]="user.lastName" required>
+  <div class="modal-body">
+    <form (ngSubmit)="onSubmitUpdateUser(updateUser)" #updateUser="ngForm" class="main-form">
+      <div><input class="main-input" type="text" placeholder="First Name" name="firstName" [(ngModel)]="user.firstName" required></div>
+      <div><input class="main-input" type="text" placeholder="Last Name" name="lastName" [(ngModel)]="user.lastName" required></div>
+      <div><input class="main-input" type="text" placeholder="email" name="email" [(ngModel)]="user.email" required></div>
+
+      <button class="main-button" type="submit" [disabled]="!updateUser.valid"> Save </button>
+    </form>
   </div>
-  <div>
-    <label for="email">email: </label>
-    <input type="email" name="email" [(ngModel)]="user.email" required>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
   </div>
-  <button type="submit" [disabled]="!updateForm.valid">update</button>
-  <p class="error" *ngIf="error">{{ error }}</p>
-</form>
+</ng-template>
+
+<ng-template #modalResetPassword let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Update user info</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="onSubmitResetPassword(resetPassword)" #resetPassword="ngForm" class="main-form">
+      <div><input class="main-input" type="text" placeholder="Old password" name="oldPassword" [(ngModel)]="oldPassword" required></div>
+      <div><input class="main-input" type="text" placeholder="New password" name="newPassword" [(ngModel)]="newPassword" required></div>
+
+      <button class="main-button" type="submit" [disabled]="!resetPassword.valid"> Save </button>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+  </div>
+</ng-template>
+
+<ng-template #loadingMsg>
+  Loading...
+</ng-template>

@@ -27,6 +27,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from './shared/services/auth.service';
 import { UserService } from './shared/services/user.service';
 import { ClientService } from './shared/services/client.service';
+import { ModalService } from './shared/services/modal.service';
+
 import { FilterPipe } from './pipes/filter.pipe';
 
 const routes: Routes = [
@@ -72,7 +74,7 @@ const routes: Routes = [
     NgbModule.forRoot(),
     DataTableModule
   ],
-  providers: [AuthService, UserService, ClientService],
+  providers: [AuthService, UserService, ClientService, ModalService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
