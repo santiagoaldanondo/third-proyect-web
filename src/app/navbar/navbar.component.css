@@ -1,5 +1,8 @@
 .right {
-    float: right;
+    vertical-align: center;
+    margin: auto;
+    font-weight: bold;
+    color: #ddeeff;
 }
 
 .clearfix {
@@ -10,6 +13,7 @@
     background-color: #007bff;
     width: 100%;
     height: 40px;
+    margin: auto;
 }
 
 .nav-item {

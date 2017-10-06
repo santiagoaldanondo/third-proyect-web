@@ -1,15 +1,17 @@
-<form (ngSubmit)="onSubmitLogin()" #loginForm="ngForm">
+<form (ngSubmit)="onSubmitLogin()" #loginForm="ngForm" class="main-form">
+
+  <p>Login with your email and password</p>
+
   <fieldset>
     <legend>User</legend>
     <div>
-      <label for="email">Email: </label>
-      <input type="email" name="email" [(ngModel)]="user.email" required>
+      <input class="main-input" placeholder="email" type="email" name="email" [(ngModel)]="user.email" required>
     </div>
     <div>
-      <label for="password">Password: </label>
-      <input type="password" name="password" [(ngModel)]="user.password" required>
+      <input class="main-input" placeholder="password" type="password" name="password" [(ngModel)]="user.password" required>
     </div>
-    <button type="submit" [disabled]="!loginForm.valid">Login</button>
-    <p class="error" *ngIf="error">{{ error }}</p>
   </fieldset>
+
+  <button class="main-button" type="submit" [disabled]="!loginForm.valid">Login</button>
+  <p class="error" *ngIf="error">{{ error }}</p>
 </form>

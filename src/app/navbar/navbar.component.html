@@ -8,5 +8,13 @@
       <button *ngFor="let adminItem of adminItems" class="fixedwidth btn-primary" [routerLink]="[adminItem.path]">{{adminItem.title}}</button>
     </div>
   </div>
+  <div class="fixedwidth">
+  </div>
+  <div class="right">
+    {{user.firstName}} in {{account.description}}
+  </div>
+  <button class="fixedwidth btn-danger" (click)="logout()">
+    Logout
+  </button>
 </nav>
 <div class="clearfix"></div>

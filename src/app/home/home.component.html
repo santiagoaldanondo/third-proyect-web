@@ -1,9 +1,12 @@
 <div class="home-container">
-    <div class="home-title">
-        <p>Bienvenido a citayfactura.es</p>
+    <h1 class="home-title">
+        Welcome to citayfactura.es
+    </h1>
+    <div class="button-container">
+        <button class="home-button" [routerLink]="['/register']">Register</button>
+        <button class="home-button" [routerLink]="['/login']">Login</button>
     </div>
-    <div class="links-container">
-        <button class="link" [routerLink]="['/register']">Register</button>
-        <button class="link" [routerLink]="['/login']">Login</button>
-    </div>
+    <h2 class="home-description">This application will help you manage your medical business. Create an account, add users, insurances, treatments, pricings,
+        clients and timetables.
+    </h2>
 </div>

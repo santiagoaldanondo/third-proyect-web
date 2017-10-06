@@ -1,30 +1,31 @@
-<form (ngSubmit)="onSubmitRegister()" #registerForm="ngForm">
-  <fieldset>
-    <legend>Account</legend>
-    <div>
-      <label for="description">Description: </label>
-      <input type="text" name="description" [(ngModel)]="account.description" required>
-    </div>
-  </fieldset>
+<form (ngSubmit)="onSubmitRegister()" #registerForm="ngForm" class="main-form">
+
+  <p>Create a new account and your new user</p>
+
   <fieldset>
     <legend>User</legend>
     <div>
-      <label for="firstName">First Name: </label>
-      <input type="text" name="firstName" [(ngModel)]="user.firstName" required>
+      <input class="main-input" type="text" placeholder="First Name" name="firstName" [(ngModel)]="user.firstName" required>
     </div>
     <div>
-      <label for="lastName">Last Name: </label>
-      <input type="text" name="lastName" [(ngModel)]="user.lastName" required>
+      <input class="main-input" type="text" placeholder="Last Name" name="lastName" [(ngModel)]="user.lastName" required>
     </div>
     <div>
-      <label for="email">Email: </label>
-      <input type="email" name="email" [(ngModel)]="user.email" required>
+      <input class="main-input" type="email" placeholder="email" name="email" [(ngModel)]="user.email" required>
     </div>
     <div>
-      <label for="password">Password: </label>
-      <input type="password" name="password" [(ngModel)]="user.password" required>
+      <input class="main-input" type="password" placeholder="password" name="password" [(ngModel)]="user.password" required>
     </div>
-    <button type="submit" [disabled]="!registerForm.valid">Sign up</button>
-    <p class="error" *ngIf="error">{{ error }}</p>
   </fieldset>
+
+  <fieldset>
+    <legend>Account</legend>
+    <div>
+      <input class="main-input" type="text" placeholder="Name of the account" name="description" [(ngModel)]="account.description"
+        required>
+    </div>
+  </fieldset>
+
+  <button class="main-button" type="submit" [disabled]="!registerForm.valid">Sign up</button>
+  <p class="error" *ngIf="error">{{ error }}</p>
 </form>

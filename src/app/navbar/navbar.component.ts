@@ -1,5 +1,10 @@
+import { AuthService } from './../shared/services/auth.service';
+import { User } from './../shared/models/user.model';
+import { Account } from './../shared/models/account.model';
 import { Component, OnInit } from '@angular/core';
 import { ROUTES, MenuType } from './navbar-routes.config';
+import { Router } from '@angular/router';
+
 
 @Component({
   moduleId: module.id,
@@ -8,14 +13,24 @@ import { ROUTES, MenuType } from './navbar-routes.config';
   styleUrls: ['navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  public mainItems: any[];
-  public adminItems: any[];
+  mainItems: any[]
+  adminItems: any[]
+  user: User
+  account: Account
 
-  constructor() {
-    this.mainItems = ROUTES.filter(menuItem => menuItem.menuType === MenuType.MAIN);
-    this.adminItems = ROUTES.filter(menuItem => menuItem.menuType === MenuType.ADMIN);
+  constructor(private router: Router, private authService: AuthService) {
+    this.mainItems = ROUTES.filter(menuItem => menuItem.menuType === MenuType.MAIN)
+    this.adminItems = ROUTES.filter(menuItem => menuItem.menuType === MenuType.ADMIN)
   }
 
-  ngOnInit() { }
+  ngOnInit(): void {
+    this.user = this.authService.authUser()
+    this.account = this.authService.authAccount()
+  }
+
+  logout(): void {
+    this.authService.logout()
+    this.router.navigate(['/home']);
+  }
 
 }

@@ -13,7 +13,7 @@ export class UsersComponent implements OnInit {
   loading = true
   users: Array<User>
   isEditing: Boolean = false
-  newUser: User = new User();
+  newUser: User = new User;
 
   constructor(private userService: UserService) { }
 
@@ -28,11 +28,9 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  toggleEdit() {
+  toggleEdit(): void {
     this.isEditing = !this.isEditing;
   }
-
-  ngForTrackBy(index: number, user: User): string { return user._id; }
 
   onSubmitAddToAccount(addToAccountForm) {
     this.userService.addToAccount(this.newUser).subscribe(data => {

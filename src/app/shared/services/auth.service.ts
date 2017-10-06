@@ -16,15 +16,22 @@ export class AuthService {
 
     private token: String
     private user: User
+    private account: Account
 
     constructor(private apollo: Apollo) {
         this.token = localStorage.getItem("JWT_TOKEN")
     }
 
+    decodeToken(): any {
+        return jwtDecode(this.token);
+    }
+
     authUser(): User {
-        let decoded = jwtDecode(this.token);
-        this.user = decoded.authUser
-        return this.user
+        return this.decodeToken().authUser
+    }
+
+    authAccount(): Account {
+        return this.decodeToken().authAccount.account
     }
 
     isAuthenticated(): boolean {
@@ -75,7 +82,7 @@ export class AuthService {
             email: $email,
             password: $password,
             description: $description
-          ) 
+          )
         }`;
         return this.apollo.mutate({
             mutation: mutation,
@@ -89,14 +96,9 @@ export class AuthService {
         })
     }
 
-    //   // logout(): Observable<boolean | string> {
-    //   //   return this.http.post(`${this.baseUrl}/logout`, null, this.options)
-    //   //     .map((res: Response) => {
-    //   //       this.deAuthenticate()
-    //   //       return res.status === 204
-    //   //     })
-    //   //     .catch(this.handleError);
-    //   // }
+    logout(): void {
+        localStorage.removeItem("JWT_TOKEN")
+    }
 
     //   private handleError(error: Response | any): Observable<string> {
     //     console.error(error);

@@ -1,4 +1,4 @@
-export class User {
+export class Timetable {
     _id: string;
     date: Date;
     client: string;
