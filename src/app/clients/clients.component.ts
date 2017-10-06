@@ -17,8 +17,12 @@ export class ClientsComponent implements OnInit {
   insurances: Array<Insurance>
   newClient: Client = new Client
   pattern: string
-  patternCode: string
-  patternDescription: string
+  patternFirstName: string
+  patternLastName: string
+  patternEmail: string
+  patternPhone: string
+  patternInsuranceNumber: string
+  patternInsurance: string
 
   constructor(private clientService: ClientService, private insuranceService: InsuranceService, private modalService: ModalService) { }
 
