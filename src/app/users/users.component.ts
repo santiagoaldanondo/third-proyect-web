@@ -16,6 +16,9 @@ export class UsersComponent implements OnInit {
   isEditing: Boolean = false
   newUser: User = new User;
   closeResult: string;
+  patternFirstName: string
+  patternLastName: string
+  patternEmail: string
 
   constructor(private userService: UserService, private modalService: NgbModal) { }
 
@@ -43,8 +46,8 @@ export class UsersComponent implements OnInit {
     })
   }
 
-  open(content) {
-    this.modalService.open(content).result.then((result) => {
+  open(modalCreate) {
+    this.modalService.open(modalCreate).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;

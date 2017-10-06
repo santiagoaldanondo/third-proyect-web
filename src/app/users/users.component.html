@@ -1,18 +1,29 @@
-<h1>List of users in your account</h1>
+<h1 class="component-title">List of users in your account</h1>
 
-<button class="btn btn-lg btn-outline-primary" (click)="open(content)">Add new user</button>
+<button class="button-modal btn btn-lg btn-outline-primary" (click)="open(content)">Add new user</button>
 
-<table *ngIf="!loading; else loadingMsg" class="table table-striped" [mfData]="users" #mf="mfDataTable" [mfRowsOnPage]="10">
+<table *ngIf="!loading; else loadingMsg" class="table table-striped" #mf="mfDataTable" [mfRowsOnPage]="10" [mfData]="(users | filter:'firstName':patternFirstName | filter:'lastName':patternLastName | filter:'email':patternEmail)">
   <thead>
     <tr>
-      <th style="width: 15%">
+      <th>
         <mfDefaultSorter by="firstName">First Name</mfDefaultSorter>
       </th>
-      <th style="width: 15%">
+      <th>
         <mfDefaultSorter by="lastName">Last Name</mfDefaultSorter>
       </th>
-      <th style="width: 15%">
+      <th>
         <mfDefaultSorter by="email">Email</mfDefaultSorter>
+      </th>
+    </tr>
+    <tr>
+      <th>
+        <input type="text" [(ngModel)]="patternFirstName">
+      </th>
+      <th>
+        <input type="text" [(ngModel)]="patternLastName">
+      </th>
+      <th>
+        <input type="text" [(ngModel)]="patternEmail">
       </th>
     </tr>
   </thead>
@@ -33,7 +44,7 @@
 </table>
 
 
-<ng-template #content let-c="close" let-d="dismiss">
+<ng-template #modalCreate let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title">Add new user</h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">

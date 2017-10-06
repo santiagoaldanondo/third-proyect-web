@@ -21,3 +21,16 @@
     margin: 2vh auto;
     padding: 6px 10px;
 }
+
+.component-title {
+    color: #0099ff;
+    margin: 5vh auto;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bolder;
+}
+
+.button-modal {
+    margin: 10px;
+    float: right;
+}

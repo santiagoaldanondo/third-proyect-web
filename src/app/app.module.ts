@@ -27,6 +27,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from './shared/services/auth.service';
 import { UserService } from './shared/services/user.service';
 import { ClientService } from './shared/services/client.service';
+import { FilterPipe } from './pipes/filter.pipe';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -60,6 +61,7 @@ const routes: Routes = [
     TreatmentsComponent,
     NavbarComponent,
     ProfileComponent,
+    FilterPipe,
   ],
   imports: [
     BrowserModule,
