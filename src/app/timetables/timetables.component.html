@@ -1,3 +1,121 @@
-<p>
-  timetables works!
-</p>
+<h1 class="component-title">List of timetables in your account</h1>
+
+<button class="button-modal btn btn-lg btn-outline-primary" (click)="open(modalCreate)">Add new timetable</button>
+
+<div class="clearfix"></div>
+
+<table class="table table-striped" #mf="mfDataTable" [mfRowsOnPage]="10" [mfData]="(timetables
+| filter:'date':patternDate
+| filter:'date':patternTime
+| filterPopulate:'client':'phone':patternClient
+| filterPopulate:'treatment':'description':patternTreatment
+| filterPopulate:'user':'email':patternUser
+| filter:'notes':patternNotes)">
+  <thead>
+    <tr>
+      <th>
+        <mfDefaultSorter by="date">Date</mfDefaultSorter>
+      </th>
+      <th>
+        <mfDefaultSorter by="time">Time</mfDefaultSorter>
+      </th>
+      <th>
+        <mfDefaultSorter by="client.phone">Client Phone</mfDefaultSorter>
+      </th>
+      <th>
+        <mfDefaultSorter by="treatment.description">Treatment</mfDefaultSorter>
+      </th>
+      <th>
+        <mfDefaultSorter by="user.email">User Email</mfDefaultSorter>
+      </th>
+      <th>
+        <mfDefaultSorter by="notes">Notes</mfDefaultSorter>
+      </th>
+    </tr>
+    <tr>
+      <th>
+        <input type="text" [(ngModel)]="patternDate">
+      </th>
+      <th>
+        <input type="text" [(ngModel)]="patternTime">
+      </th>
+      <th>
+        <input type="text" [(ngModel)]="patternClient">
+      </th>
+      <th>
+        <input type="text" [(ngModel)]="patternTreatment">
+      </th>
+      <th>
+        <input type="text" [(ngModel)]="patternUser">
+      </th>
+      <th>
+        <input type="text" [(ngModel)]="patternNotes">
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let timetable of mf.data">
+      <td>{{timetable.date | date:'dd/MM'}}</td>
+      <td>{{timetable.date | date:'HH:mm'}}</td>
+      <td>{{timetable.client.phone}}</td>
+      <td>{{timetable.treatment.description}}</td>
+      <td>{{timetable.user.email}}</td>
+      <td>{{timetable.notes}}</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="3">
+        <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+
+
+<ng-template #modalCreate let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Add new timetable</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="onSubmitCreate(createForm)" #createForm="ngForm" class="main-form">
+
+      <div><input class="main-input" type="datetime-local" placeholder="date" name="date" [(ngModel)]="newTimetable.date" required></div>
+
+      <div class="main-input">
+        <label class="main-input" for="client">Client Phone</label>
+        <select class="main-input" name="client" [(ngModel)]="newTimetable.client" required>
+          <option class="main-input" *ngFor="let client of clients" [ngValue]="client._id">{{client.phone}}</option>
+        </select>
+      </div>
+
+      <div class="main-input">
+        <label class="main-input" for="treatment">Treatment</label>
+        <select class="main-input" name="treatment" [(ngModel)]="newTimetable.treatment" required>
+          <option class="main-input" *ngFor="let treatment of treatments" [ngValue]="treatment._id">{{treatment.description}}</option>
+        </select>
+      </div>
+
+      <div class="main-input">
+        <label class="main-input" for="user">User email</label>
+        <select class="main-input" name="user" [(ngModel)]="newTimetable.user" required>
+            <option class="main-input" *ngFor="let user of users" [ngValue]="user._id">{{user.email}}</option>
+          </select>
+      </div>
+
+      <div><input class="main-input" type="notes" placeholder="notes" name="notes" [(ngModel)]="newTimetable.notes" required></div>
+
+      <button class="main-button" type="submit" [disabled]="!createForm.valid"> Save </button>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+  </div>
+</ng-template>
+
+<ng-template #loadingMsg>
+  Loading...
+</ng-template>

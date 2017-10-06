@@ -32,6 +32,7 @@ import { InsuranceService } from './shared/services/insurance.service';
 import { TreatmentService } from './shared/services/treatment.service';
 import { PricingService } from './shared/services/pricing.service';
 import { ClientService } from './shared/services/client.service';
+import { TimetableService } from './shared/services/timetable.service';
 
 import { FilterPipe } from './pipes/filter.pipe';
 import { FilterPopulatePipe } from './pipes/filter-populate.pipe';
@@ -87,7 +88,9 @@ const routes: Routes = [
     InsuranceService,
     TreatmentService,
     PricingService,
-    ClientService],
+    ClientService,
+    TimetableService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
