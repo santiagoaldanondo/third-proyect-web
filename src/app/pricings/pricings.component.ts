@@ -19,9 +19,8 @@ export class PricingsComponent implements OnInit {
   treatments: Array<Treatment>
   insurances: Array<Insurance>
   newPricing: Pricing = new Pricing
-  pattern: string
-  patternCode: string
-  patternDescription: string
+  patternTreatment: string
+  patternInsurance: string
 
   constructor(private pricingService: PricingService, private treatmentService: TreatmentService, private insuranceService: InsuranceService, private modalService: ModalService) { }
 

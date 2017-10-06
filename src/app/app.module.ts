@@ -80,7 +80,14 @@ const routes: Routes = [
     NgbModule.forRoot(),
     DataTableModule
   ],
-  providers: [ModalService, AuthService, UserService, InsuranceService, TreatmentService, PricingService, ClientService],
+  providers: [
+    ModalService,
+    AuthService,
+    UserService,
+    InsuranceService,
+    TreatmentService,
+    PricingService,
+    ClientService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

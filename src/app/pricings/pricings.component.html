@@ -54,14 +54,14 @@
     <form (ngSubmit)="onSubmitCreate(createForm)" #createForm="ngForm" class="main-form">
       <div><input class="main-input" type="number" placeholder="price" name="price" [(ngModel)]="newPricing.price" required></div>
       <div class="main-input">
-        <label for="treatment">Treatment</label>
-        <select name="treatment" [(ngModel)]="newPricing.treatment" required>
+        <label class="main-input" for="treatment">Treatment</label>
+        <select class="main-input" name="treatment" [(ngModel)]="newPricing.treatment" required>
           <option class="main-input" *ngFor="let treatment of treatments" [ngValue]="treatment._id">{{treatment.description}}</option>
         </select>
       </div>
       <div class="main-input">
-        <label for="insurance">Insurance</label>
-        <select name="insurance" [(ngModel)]="newPricing.insurance" required>
+        <label class="main-input" for="insurance">Insurance</label>
+        <select class="main-input" name="insurance" [(ngModel)]="newPricing.insurance" required>
           <option class="main-input" *ngFor="let insurance of insurances" [ngValue]="insurance._id">{{insurance.name}}</option>
         </select>
       </div>

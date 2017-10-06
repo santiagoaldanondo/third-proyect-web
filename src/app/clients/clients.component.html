@@ -1,34 +1,109 @@
-<h1>List of clients in your account</h1>
+<h1 class="component-title">List of clients in your account</h1>
 
-<a (click)="toggleEdit()"> Add a new client to the account </a>
+<button class="button-modal btn btn-lg btn-outline-primary" (click)="open(modalCreate)">Add new client</button>
 
-<form (ngSubmit)="onSubmitCreateClient(CreateClientAccountForm)" #CreateClientAccountForm="ngForm">
-  <table *ngIf="!loading; else loadingMsg">
-    <thead>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>email</th>
-      <th>Password</th>
-      <th></th>
-    </thead>
-    <tr [hidden]="!isEditing">
-      <td><input type="text" name="firstName" [(ngModel)]="newClient.firstName" required></td>
-      <td><input type="text" name="lastName" [(ngModel)]="newClient.lastName" required></td>
-      <td><input type="text" name="email" [(ngModel)]="newClient.email" required></td>
-      <td><input type="password" name="password" [(ngModel)]="newClient.password" required></td>
-      <td>
-        <button type="submit" [disabled]="!CreateClientAccountForm.valid"> Save </button>
-        <a (click)="toggleEdit()"> X </a>
-      </td>
+<div class="clearfix"></div>
+
+<table class="table table-striped" #mf="mfDataTable" [mfRowsOnPage]="10" [mfData]="(clients
+| filter:'firstName':patternFirstName 
+| filter:'lastName':patternLastName 
+| filter:'email':patternEmail 
+| filter:'phone':patternPhone 
+| filter:'insuranceNumber':patternInsuranceNumber 
+| filterPopulate:'insurance':'name':patternInsurance )">
+  <thead>
+    <tr>
+      <th>
+        <mfDefaultSorter by="firstName">First Name</mfDefaultSorter>
+      </th>
+      <th>
+        <mfDefaultSorter by="lastName">Last Name</mfDefaultSorter>
+      </th>
+      <th>
+        <mfDefaultSorter by="email">Email</mfDefaultSorter>
+      </th>
+      <th>
+        <mfDefaultSorter by="phone">Phone</mfDefaultSorter>
+      </th>
+      <th>
+        <mfDefaultSorter by="insuranceNumber">Insurance Number</mfDefaultSorter>
+      </th>
+      <th>
+        <mfDefaultSorter by="insurance.name">Insurance</mfDefaultSorter>
+      </th>
     </tr>
-    <tr *ngFor="let client of clients">
+    <tr>
+      <th>
+        <input type="text" [(ngModel)]="patternFirstName">
+      </th>
+      <th>
+        <input type="text" [(ngModel)]="patternLastName">
+      </th>
+      <th>
+        <input type="text" [(ngModel)]="patternEmail">
+      </th>
+      <th>
+        <input type="text" [(ngModel)]="patternPhone">
+      </th>
+      <th>
+        <input type="text" [(ngModel)]="patternInsuranceNumber">
+      </th>
+      <th>
+        <input type="text" [(ngModel)]="patternInsurance">
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let client of mf.data">
       <td>{{client.firstName}}</td>
       <td>{{client.lastName}}</td>
       <td>{{client.email}}</td>
-      <td></td>
+      <td>{{client.phone}}</td>
+      <td>{{client.insuranceNumber}}</td>
+      <td>{{client.insurance.name}}</td>
     </tr>
-  </table>
-</form>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="3">
+        <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+
+
+<ng-template #modalCreate let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Add new client</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="onSubmitCreate(createForm)" #createForm="ngForm" class="main-form">
+      <div><input class="main-input" type="text" placeholder="firstName" name="firstName" [(ngModel)]="newClient.firstName" required></div>
+      <div><input class="main-input" type="text" placeholder="lastName" name="lastName" [(ngModel)]="newClient.lastName" required></div>
+      <div><input class="main-input" type="text" placeholder="email" name="email" [(ngModel)]="newClient.email" required></div>
+      <div><input class="main-input" type="text" placeholder="phone" name="phone" [(ngModel)]="newClient.phone" required></div>
+      <div>
+        <input class="main-input" type="text" placeholder="insuranceNumber" name="insuranceNumber" [(ngModel)]="newClient.insuranceNumber"
+          required>
+      </div>
+      <div class="main-input">
+        <label for="insurance">Insurance</label>
+        <select name="insurance" [(ngModel)]="newClient.insurance" required>
+          <option class="main-input" *ngFor="let insurance of insurances" [ngValue]="insurance._id">{{insurance.name}}</option>
+        </select>
+      </div>
+
+      <button class="main-button" type="submit" [disabled]="!createForm.valid"> Save </button>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+  </div>
+</ng-template>
 
 <ng-template #loadingMsg>
   Loading...
