@@ -28,19 +28,19 @@ export class ProfileComponent implements OnInit {
     this.user = this.authService.authUser()
   }
 
-  onSubmitUpdateUser(updateUserForm): void {
+  onSubmitUpdate(updateForm): void {
     console.log(this.user)
     this.userService.updateUser(this.user).subscribe(data => {
-      updateUserForm.reset()
+      updateForm.reset()
       this.authService.authenticate(JSON.parse(JSON.stringify(data)).data.updateUser)
       this.loadUser()
       window.location.reload()
     })
   }
 
-  onSubmitResetPassword(resetPasswordForm): void {
+  onSubmitReset(resetForm): void {
     this.userService.resetPassword(this.oldPassword, this.newPassword).subscribe(data => {
-      resetPasswordForm.reset()
+      resetForm.reset()
       window.location.reload()
     })
   }

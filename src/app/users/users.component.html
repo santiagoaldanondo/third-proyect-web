@@ -54,13 +54,13 @@
       </button>
   </div>
   <div class="modal-body">
-    <form (ngSubmit)="onSubmitAddToAccount(addToAccountForm)" #addToAccountForm="ngForm" class="main-form">
+    <form (ngSubmit)="onSubmitCreate(createForm)" #createForm="ngForm" class="main-form">
       <div><input class="main-input" type="text" placeholder="First Name" name="firstName" [(ngModel)]="newUser.firstName" required></div>
       <div><input class="main-input" type="text" placeholder="Last Name" name="lastName" [(ngModel)]="newUser.lastName" required></div>
       <div><input class="main-input" type="text" placeholder="email" name="email" [(ngModel)]="newUser.email" required></div>
       <div><input class="main-input" type="password" placeholder="password" name="password" [(ngModel)]="newUser.password" required></div>
 
-      <button class="main-button" type="submit" [disabled]="!addToAccountForm.valid"> Save </button>
+      <button class="main-button" type="submit" [disabled]="!createForm.valid"> Save </button>
     </form>
   </div>
   <div class="modal-footer">

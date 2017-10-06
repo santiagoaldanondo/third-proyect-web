@@ -24,10 +24,12 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { ProfileComponent } from './profile/profile.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { ModalService } from './shared/services/modal.service';
+
 import { AuthService } from './shared/services/auth.service';
 import { UserService } from './shared/services/user.service';
+import { InsuranceService } from './shared/services/insurance.service';
 import { ClientService } from './shared/services/client.service';
-import { ModalService } from './shared/services/modal.service';
 
 import { FilterPipe } from './pipes/filter.pipe';
 
@@ -43,7 +45,7 @@ const routes: Routes = [
       { path: 'profile', component: ProfileComponent },
       { path: 'users', component: UsersComponent },
       { path: 'treatments', component: TreatmentsComponent },
-      { path: 'insurances', component: TreatmentsComponent },
+      { path: 'insurances', component: InsurancesComponent },
       { path: 'pricings', component: PricingsComponent },
     ]
   }
@@ -74,7 +76,7 @@ const routes: Routes = [
     NgbModule.forRoot(),
     DataTableModule
   ],
-  providers: [AuthService, UserService, ClientService, ModalService],
+  providers: [ModalService, AuthService, UserService, InsuranceService, ClientService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

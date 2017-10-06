@@ -31,10 +31,10 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  onSubmitAddToAccount(addToAccountForm): void {
+  onSubmitCreate(createForm): void {
     this.userService.addToAccount(this.newUser).subscribe(data => {
       this.loadUsers()
-      addToAccountForm.reset()
+      createForm.reset()
       window.location.reload()
     })
   }

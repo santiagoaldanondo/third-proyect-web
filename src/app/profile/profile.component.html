@@ -1,7 +1,7 @@
 <h1 class="component-title">Your profile</h1>
 
 <button class="button-modal btn btn-lg btn-outline-primary" (click)="open(modalUpdate)">Update user info</button>
-<button class="button-modal btn btn-lg btn-outline-primary" (click)="open(modalResetPassword)">Reset password</button>
+<button class="button-modal btn btn-lg btn-outline-primary" (click)="open(modalReset)">Reset password</button>
 
 <div class="clearfix"></div>
 
@@ -18,12 +18,12 @@
       </button>
   </div>
   <div class="modal-body">
-    <form (ngSubmit)="onSubmitUpdateUser(updateUser)" #updateUser="ngForm" class="main-form">
+    <form (ngSubmit)="onSubmitUpdate(updateForm)" #updateForm="ngForm" class="main-form">
       <div><input class="main-input" type="text" placeholder="First Name" name="firstName" [(ngModel)]="user.firstName" required></div>
       <div><input class="main-input" type="text" placeholder="Last Name" name="lastName" [(ngModel)]="user.lastName" required></div>
       <div><input class="main-input" type="text" placeholder="email" name="email" [(ngModel)]="user.email" required></div>
 
-      <button class="main-button" type="submit" [disabled]="!updateUser.valid"> Save </button>
+      <button class="main-button" type="submit" [disabled]="!updateForm.valid"> Save </button>
     </form>
   </div>
   <div class="modal-footer">
@@ -31,7 +31,7 @@
   </div>
 </ng-template>
 
-<ng-template #modalResetPassword let-c="close" let-d="dismiss">
+<ng-template #modalReset let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title">Update user info</h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
@@ -39,11 +39,11 @@
       </button>
   </div>
   <div class="modal-body">
-    <form (ngSubmit)="onSubmitResetPassword(resetPassword)" #resetPassword="ngForm" class="main-form">
+    <form (ngSubmit)="onSubmitReset(resetForm)" #resetForm="ngForm" class="main-form">
       <div><input class="main-input" type="text" placeholder="Old password" name="oldPassword" [(ngModel)]="oldPassword" required></div>
       <div><input class="main-input" type="text" placeholder="New password" name="newPassword" [(ngModel)]="newPassword" required></div>
 
-      <button class="main-button" type="submit" [disabled]="!resetPassword.valid"> Save </button>
+      <button class="main-button" type="submit" [disabled]="!resetForm.valid"> Save </button>
     </form>
   </div>
   <div class="modal-footer">
