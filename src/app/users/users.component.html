@@ -1,34 +1,59 @@
 <h1>List of users in your account</h1>
 
-<a (click)="toggleEdit()"> Add a new user to the account </a>
+<button class="btn btn-lg btn-outline-primary" (click)="open(content)">Add new user</button>
 
-<form (ngSubmit)="onSubmitAddToAccount(addToAccountForm)" #addToAccountForm="ngForm">
-  <table *ngIf="!loading; else loadingMsg">
-    <thead>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>email</th>
-      <th>Password</th>
-      <th></th>
-    </thead>
-    <tr [hidden]="!isEditing">
-      <td><input type="text" name="firstName" [(ngModel)]="newUser.firstName" required></td>
-      <td><input type="text" name="lastName" [(ngModel)]="newUser.lastName" required></td>
-      <td><input type="text" name="email" [(ngModel)]="newUser.email" required></td>
-      <td><input type="password" name="password" [(ngModel)]="newUser.password" required></td>
-      <td>
-        <button type="submit" [disabled]="!addToAccountForm.valid"> Save </button>
-        <a (click)="toggleEdit()"> X </a>
-      </td>
+<table *ngIf="!loading; else loadingMsg" class="table table-striped" [mfData]="users" #mf="mfDataTable" [mfRowsOnPage]="10">
+  <thead>
+    <tr>
+      <th style="width: 15%">
+        <mfDefaultSorter by="firstName">First Name</mfDefaultSorter>
+      </th>
+      <th style="width: 15%">
+        <mfDefaultSorter by="lastName">Last Name</mfDefaultSorter>
+      </th>
+      <th style="width: 15%">
+        <mfDefaultSorter by="email">Email</mfDefaultSorter>
+      </th>
     </tr>
-    <tr *ngFor="let user of users">
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of mf.data">
       <td>{{user.firstName}}</td>
       <td>{{user.lastName}}</td>
       <td>{{user.email}}</td>
-      <td></td>
     </tr>
-  </table>
-</form>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="3">
+        <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Add new user</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="onSubmitAddToAccount(addToAccountForm)" #addToAccountForm="ngForm" class="main-form">
+      <div><input class="main-input" type="text" placeholder="First Name" name="firstName" [(ngModel)]="newUser.firstName" required></div>
+      <div><input class="main-input" type="text" placeholder="Last Name" name="lastName" [(ngModel)]="newUser.lastName" required></div>
+      <div><input class="main-input" type="text" placeholder="email" name="email" [(ngModel)]="newUser.email" required></div>
+      <div><input class="main-input" type="password" placeholder="password" name="password" [(ngModel)]="newUser.password" required></div>
+
+      <button class="main-button" type="submit" [disabled]="!addToAccountForm.valid"> Save </button>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+  </div>
+</ng-template>
 
 <ng-template #loadingMsg>
   Loading...

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 import { UserService } from './../shared/services/user.service';
 import { User } from './../shared/models/user.model';
@@ -14,8 +15,9 @@ export class UsersComponent implements OnInit {
   users: Array<User>
   isEditing: Boolean = false
   newUser: User = new User;
+  closeResult: string;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private modalService: NgbModal) { }
 
   ngOnInit() {
     this.loadUsers()
@@ -39,5 +41,23 @@ export class UsersComponent implements OnInit {
       addToAccountForm.reset()
       window.location.reload()
     })
+  }
+
+  open(content) {
+    this.modalService.open(content).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
   }
 }

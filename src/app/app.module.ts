@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ApolloModule } from 'apollo-angular';
+import { DataTableModule } from "angular2-datatable";
 
 import './rxjs.operators'
 import { apolloClient } from './client';
@@ -66,7 +67,8 @@ const routes: Routes = [
     HttpModule,
     RouterModule.forRoot(routes),
     ApolloModule.forRoot(apolloClient),
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    DataTableModule
   ],
   providers: [AuthService, UserService, ClientService],
   bootstrap: [AppComponent]
