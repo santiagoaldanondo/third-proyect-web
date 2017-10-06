@@ -1,0 +1,40 @@
+.clearfix {
+    clear: both;
+}
+
+.main-form {
+    margin: 5vh auto;
+    text-align: center;
+    font-weight: bold;
+    color: #444444;
+}
+
+.main-input {
+    margin: 1vh auto;
+    text-align: center;
+    border-radius: 1px;
+}
+
+.main-button {
+    display: block;
+    color: #007bff;
+    font-weight: bold;
+    background: linear-gradient(to bottom, #ccddee, #aaccdd);
+    border: 2px solid #0099ff;
+    border-radius: 3px;
+    margin: 2vh auto;
+    padding: 6px 10px;
+}
+
+.component-title {
+    color: #0099ff;
+    margin: 5vh auto;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bolder;
+}
+
+.button-modal {
+    margin: 10px;
+    float: right;
+}

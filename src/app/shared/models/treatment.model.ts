@@ -1,5 +1,5 @@
-export class Service {
-    id: string;
+export class Treatment {
+    _id: string;
     branch: string;
     code: string;
     description: string;

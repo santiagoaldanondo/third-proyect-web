@@ -1,3 +1,72 @@
-<p>
-  pricings works!
-</p>
+<h1 class="component-title">List of pricings in your account</h1>
+
+<button class="button-modal btn btn-lg btn-outline-primary" (click)="open(modalCreate)">Add new pricing</button>
+
+<div class="clearfix"></div>
+
+<table class="table table-striped" #mf="mfDataTable" [mfRowsOnPage]="10" [mfData]="(pricings | filter:'treatment':patternTreatment | filter:'insurance':patternInsurance | filter:'price':patternPrice)">
+  <thead>
+    <tr>
+      <th>
+        <mfDefaultSorter by="treatment">Treatment</mfDefaultSorter>
+      </th>
+      <th>
+        <mfDefaultSorter by="nsurance">Insurance</mfDefaultSorter>
+      </th>
+      <th>
+        <mfDefaultSorter by="price">Price</mfDefaultSorter>
+      </th>
+    </tr>
+    <tr>
+      <th>
+        <input type="text" [(ngModel)]="patternTreatment">
+      </th>
+      <th>
+        <input type="text" [(ngModel)]="patternInsurance">
+      </th>
+      <th>
+        <input type="text" [(ngModel)]="patternPrice">
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let pricing of mf.data">
+      <td>{{pricing.treatment.description}}</td>
+      <td>{{pricing.insurance.name}}</td>
+      <td>{{pricing.price}}</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="3">
+        <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+
+
+<ng-template #modalCreate let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Add new pricing</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="onSubmitCreate(createForm)" #createForm="ngForm" class="main-form">
+      <div><input class="main-input" type="text" placeholder="treatment" name="treatment" [(ngModel)]="newPricing.treatment"></div>
+      <div><input class="main-input" type="text" placeholder="insurance" name="insurance" [(ngModel)]="newPricing.insurance"></div>
+      <div><input class="main-input" type="text" placeholder="price" name="price" [(ngModel)]="newPricing.price" required></div>
+
+      <button class="main-button" type="submit" [disabled]="!createForm.valid"> Save </button>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+  </div>
+</ng-template>
+
+<ng-template #loadingMsg>
+  Loading...
+</ng-template>

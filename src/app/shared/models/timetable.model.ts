@@ -2,7 +2,7 @@ export class Timetable {
     _id: string;
     date: Date;
     client: string;
-    service: string;
+    treatment: string;
     user: string;
     account: string;
     notes: string;

@@ -1,5 +1,4 @@
 
-import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
@@ -42,7 +41,7 @@ export class ClientService {
       $insuranceNumber: insuranceNumber,
       $insurance: insurance
     ) {
-        updateUser(
+        createClient(
           firstName: $firstName,
           lastName: $lastName,
           email: $email,
@@ -74,7 +73,7 @@ export class ClientService {
       $insuranceNumber: insuranceNumber,
       $insurance: insurance
     ) {
-        updateUser(
+        updateClient(
           _id: $_id;
           firstName: $firstName,
           lastName: $lastName,

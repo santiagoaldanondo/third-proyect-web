@@ -34,14 +34,14 @@
 
 <ng-template #modalCreate let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title">Add new user</h4>
+    <h4 class="modal-title">Add new insurance</h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
   </div>
   <div class="modal-body">
     <form (ngSubmit)="onSubmitCreate(createForm)" #createForm="ngForm" class="main-form">
-      <div><input class="main-input" type="text" placeholder="First Name" name="firstName" [(ngModel)]="newUser.firstName" required></div>
+      <div><input class="main-input" type="text" placeholder="Name" name="name" [(ngModel)]="newInsurance.name" required></div>
 
       <button class="main-button" type="submit" [disabled]="!createForm.valid"> Save </button>
     </form>

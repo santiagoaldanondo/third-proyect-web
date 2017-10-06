@@ -18,8 +18,8 @@ export class InsuranceService {
   getInsurances(): Observable<any> {
     const getInsurances = graphqlTag`query {
       getInsurances {
-        _id: string!;
-        name: string!;
+        _id
+        name
       }
     }`;
 
@@ -34,7 +34,10 @@ export class InsuranceService {
     ) {
         createInsurance(
           name: $name,
-        )
+        ) {
+          _id
+          name
+        }
       }`;
     return this.apollo.mutate({
       mutation: mutation,
@@ -52,7 +55,10 @@ export class InsuranceService {
         updateInsurance(
           _id: $id,
           name: $name,
-        )
+        ) {
+          _id
+          name
+        }
       }`;
     return this.apollo.mutate({
       mutation: mutation,

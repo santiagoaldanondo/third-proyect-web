@@ -29,6 +29,8 @@ import { ModalService } from './shared/services/modal.service';
 import { AuthService } from './shared/services/auth.service';
 import { UserService } from './shared/services/user.service';
 import { InsuranceService } from './shared/services/insurance.service';
+import { TreatmentService } from './shared/services/treatment.service';
+import { PricingService } from './shared/services/pricing.service';
 import { ClientService } from './shared/services/client.service';
 
 import { FilterPipe } from './pipes/filter.pipe';
@@ -76,7 +78,7 @@ const routes: Routes = [
     NgbModule.forRoot(),
     DataTableModule
   ],
-  providers: [ModalService, AuthService, UserService, InsuranceService, ClientService],
+  providers: [ModalService, AuthService, UserService, InsuranceService, TreatmentService, PricingService, ClientService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

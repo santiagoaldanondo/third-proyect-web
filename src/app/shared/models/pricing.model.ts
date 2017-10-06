@@ -1,6 +1,6 @@
 export class Pricing {
-    id: string;
-    service: string;
+    _id: string;
+    treatment: string;
     insurance: string;
     price: string;
     account: string;

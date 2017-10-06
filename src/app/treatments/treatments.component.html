@@ -1,3 +1,73 @@
-<p>
-  treatments works!
-</p>
+<h1 class="component-title">List of treatments in your account</h1>
+
+<button class="button-modal btn btn-lg btn-outline-primary" (click)="open(modalCreate)">Add new treatment</button>
+
+<div class="clearfix"></div>
+
+<table *ngIf="!loading; else loadingMsg" class="table table-striped" #mf="mfDataTable" [mfRowsOnPage]="10" [mfData]="(treatments | filter:'branch':patternBranch | filter:'code':patternCode | filter:'description':patternDescription)">
+  <thead>
+    <tr>
+      <th>
+        <mfDefaultSorter by="branch">Branch</mfDefaultSorter>
+      </th>
+      <th>
+        <mfDefaultSorter by="code">Code</mfDefaultSorter>
+      </th>
+      <th>
+        <mfDefaultSorter by="description">Description</mfDefaultSorter>
+      </th>
+    </tr>
+    <tr>
+      <th>
+        <input type="text" [(ngModel)]="patternBranch">
+      </th>
+      <th>
+        <input type="text" [(ngModel)]="patternCode">
+      </th>
+      <th>
+        <input type="text" [(ngModel)]="patternDescription">
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let treatment of mf.data">
+      <td>{{treatment.branch}}</td>
+      <td>{{treatment.code}}</td>
+      <td>{{treatment.description}}</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="3">
+        <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+
+
+<ng-template #modalCreate let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Add new treatment</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="onSubmitCreate(createForm)" #createForm="ngForm" class="main-form">
+      <div><input class="main-input" type="text" placeholder="Branch" name="branch" [(ngModel)]="newTreatment.branch"></div>
+      <div><input class="main-input" type="text" placeholder="Code" name="code" [(ngModel)]="newTreatment.code"></div>
+      <div><input class="main-input" type="text" placeholder="Description" name="description" [(ngModel)]="newTreatment.description"
+          required></div>
+
+      <button class="main-button" type="submit" [disabled]="!createForm.valid"> Save </button>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+  </div>
+</ng-template>
+
+<ng-template #loadingMsg>
+  Loading...
+</ng-template>
