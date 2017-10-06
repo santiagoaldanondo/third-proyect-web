@@ -87,26 +87,26 @@
 
       <div class="main-input">
         <label class="main-input" for="client">Client Phone</label>
-        <select class="main-input" name="client" [(ngModel)]="newTimetable.client" required>
+        <select class="main-input" name="client" [(ngModel)]="newTimetable.client">
           <option class="main-input" *ngFor="let client of clients" [ngValue]="client._id">{{client.phone}}</option>
         </select>
       </div>
 
       <div class="main-input">
         <label class="main-input" for="treatment">Treatment</label>
-        <select class="main-input" name="treatment" [(ngModel)]="newTimetable.treatment" required>
+        <select class="main-input" name="treatment" [(ngModel)]="newTimetable.treatment">
           <option class="main-input" *ngFor="let treatment of treatments" [ngValue]="treatment._id">{{treatment.description}}</option>
         </select>
       </div>
 
       <div class="main-input">
         <label class="main-input" for="user">User email</label>
-        <select class="main-input" name="user" [(ngModel)]="newTimetable.user" required>
+        <select class="main-input" name="user" [(ngModel)]="newTimetable.user">
             <option class="main-input" *ngFor="let user of users" [ngValue]="user._id">{{user.email}}</option>
           </select>
       </div>
 
-      <div><input class="main-input" type="notes" placeholder="notes" name="notes" [(ngModel)]="newTimetable.notes" required></div>
+      <div><input class="main-input" type="notes" placeholder="notes" name="notes" [(ngModel)]="newTimetable.notes"></div>
 
       <button class="main-button" type="submit" [disabled]="!createForm.valid"> Save </button>
     </form>

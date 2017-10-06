@@ -84,11 +84,10 @@
     <form (ngSubmit)="onSubmitCreate(createForm)" #createForm="ngForm" class="main-form">
       <div><input class="main-input" type="text" placeholder="firstName" name="firstName" [(ngModel)]="newClient.firstName" required></div>
       <div><input class="main-input" type="text" placeholder="lastName" name="lastName" [(ngModel)]="newClient.lastName" required></div>
-      <div><input class="main-input" type="text" placeholder="email" name="email" [(ngModel)]="newClient.email" required></div>
+      <div><input class="main-input" type="text" placeholder="email" name="email" [(ngModel)]="newClient.email"></div>
       <div><input class="main-input" type="text" placeholder="phone" name="phone" [(ngModel)]="newClient.phone" required></div>
       <div>
-        <input class="main-input" type="text" placeholder="insuranceNumber" name="insuranceNumber" [(ngModel)]="newClient.insuranceNumber"
-          required>
+        <input class="main-input" type="text" placeholder="insuranceNumber" name="insuranceNumber" [(ngModel)]="newClient.insuranceNumber">
       </div>
       <div class="main-input">
         <label for="insurance">Insurance</label>

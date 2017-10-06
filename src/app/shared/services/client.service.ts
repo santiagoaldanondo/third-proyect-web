@@ -80,7 +80,7 @@ export class ClientService {
   updateClient(client: Client): Observable<any> {
     const mutation = graphqlTag`mutation(
         $_id: String!,
-        $firstName: String,
+        $firstName: String!,
         $lastName: String!,
         $email: String,
         $phone: String!,
