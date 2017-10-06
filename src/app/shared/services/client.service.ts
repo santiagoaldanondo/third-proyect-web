@@ -39,9 +39,9 @@ export class ClientService {
     const mutation = graphqlTag`mutation(
         $firstName: String!,
         $lastName: String!,
-        $email: String!,
+        $email: String,
         $phone: String!,
-        $insuranceNumber: String!,
+        $insuranceNumber: String,
         $insurance: ID!,
       ) {
           createClient(
@@ -80,11 +80,11 @@ export class ClientService {
   updateClient(client: Client): Observable<any> {
     const mutation = graphqlTag`mutation(
         $_id: String!,
-        $firstName: String!,
+        $firstName: String,
         $lastName: String!,
-        $email: String!,
+        $email: String,
         $phone: String!,
-        $insuranceNumber: String!,
+        $insuranceNumber: String,
         $insurance: ID!,
       ) {
           updateClient(
