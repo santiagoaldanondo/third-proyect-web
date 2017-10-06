@@ -4,14 +4,14 @@
 
 <div class="clearfix"></div>
 
-<table class="table table-striped" #mf="mfDataTable" [mfRowsOnPage]="10" [mfData]="(pricings | filter:'treatment':patternTreatment | filter:'insurance':patternInsurance | filter:'price':patternPrice)">
+<table class="table table-striped" #mf="mfDataTable" [mfRowsOnPage]="10" [mfData]="(pricings | filterPopulate:'treatment':'description':patternTreatment | filterPopulate:'insurance':'name':patternInsurance)">
   <thead>
     <tr>
       <th>
-        <mfDefaultSorter by="treatment">Treatment</mfDefaultSorter>
+        <mfDefaultSorter by="treatment.description">Treatment</mfDefaultSorter>
       </th>
       <th>
-        <mfDefaultSorter by="nsurance">Insurance</mfDefaultSorter>
+        <mfDefaultSorter by="insurance.name">Insurance</mfDefaultSorter>
       </th>
       <th>
         <mfDefaultSorter by="price">Price</mfDefaultSorter>
@@ -23,9 +23,6 @@
       </th>
       <th>
         <input type="text" [(ngModel)]="patternInsurance">
-      </th>
-      <th>
-        <input type="text" [(ngModel)]="patternPrice">
       </th>
     </tr>
   </thead>
@@ -55,9 +52,19 @@
   </div>
   <div class="modal-body">
     <form (ngSubmit)="onSubmitCreate(createForm)" #createForm="ngForm" class="main-form">
-      <div><input class="main-input" type="text" placeholder="treatment" name="treatment" [(ngModel)]="newPricing.treatment"></div>
-      <div><input class="main-input" type="text" placeholder="insurance" name="insurance" [(ngModel)]="newPricing.insurance"></div>
-      <div><input class="main-input" type="text" placeholder="price" name="price" [(ngModel)]="newPricing.price" required></div>
+      <div><input class="main-input" type="number" placeholder="price" name="price" [(ngModel)]="newPricing.price" required></div>
+      <div class="main-input">
+        <label for="treatment">Treatment</label>
+        <select name="treatment" [(ngModel)]="newPricing.treatment" required>
+          <option class="main-input" *ngFor="let treatment of treatments" [ngValue]="treatment._id">{{treatment.description}}</option>
+        </select>
+      </div>
+      <div class="main-input">
+        <label for="insurance">Insurance</label>
+        <select name="insurance" [(ngModel)]="newPricing.insurance" required>
+          <option class="main-input" *ngFor="let insurance of insurances" [ngValue]="insurance._id">{{insurance.name}}</option>
+        </select>
+      </div>
 
       <button class="main-button" type="submit" [disabled]="!createForm.valid"> Save </button>
     </form>

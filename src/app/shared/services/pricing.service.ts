@@ -37,9 +37,9 @@ export class PricingService {
 
   createPricing(pricing: Pricing): Observable<any> {
     const mutation = graphqlTag`mutation(
-      $treatment: String!,
-      $insurance: String!,
-      $price: Number!
+      $treatment: ID!,
+      $insurance: ID!,
+      $price: Float!
     ) {
         createPricing(
           treatment: $treatment,
@@ -71,9 +71,9 @@ export class PricingService {
   updatePricing(pricing: Pricing): Observable<any> {
     const mutation = graphqlTag`mutation(
       $_id: String!,
-      $treatment: String!,
-      $insurance: String!,
-      $price: Number!
+      $treatment: ID!,
+      $insurance: ID!,
+      $price: Float!
     ) {
         updatePricing(
           _id: $id,

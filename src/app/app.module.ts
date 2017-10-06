@@ -34,6 +34,7 @@ import { PricingService } from './shared/services/pricing.service';
 import { ClientService } from './shared/services/client.service';
 
 import { FilterPipe } from './pipes/filter.pipe';
+import { FilterPopulatePipe } from './pipes/filter-populate.pipe';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -68,6 +69,7 @@ const routes: Routes = [
     NavbarComponent,
     ProfileComponent,
     FilterPipe,
+    FilterPopulatePipe
   ],
   imports: [
     BrowserModule,
