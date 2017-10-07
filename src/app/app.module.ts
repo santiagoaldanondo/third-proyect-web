@@ -33,6 +33,7 @@ import { TreatmentService } from './shared/services/treatment.service';
 import { PricingService } from './shared/services/pricing.service';
 import { ClientService } from './shared/services/client.service';
 import { TimetableService } from './shared/services/timetable.service';
+import { AuthGuardService } from './shared/services/auth-guard.service';
 
 import { FilterPipe } from './pipes/filter.pipe';
 import { FilterPopulatePipe } from './pipes/filter-populate.pipe';
@@ -43,7 +44,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   {
-    path: 'account', component: AccountComponent, children: [
+    path: 'account', component: AccountComponent, canActivate: [AuthGuardService], children: [
       { path: '', redirectTo: 'profile', pathMatch: 'full' },
       { path: 'timetables', component: TimetablesComponent },
       { path: 'clients', component: ClientsComponent },
@@ -91,7 +92,8 @@ const routes: Routes = [
     TreatmentService,
     PricingService,
     ClientService,
-    TimetableService
+    TimetableService,
+    AuthGuardService
   ],
   bootstrap: [AppComponent]
 })

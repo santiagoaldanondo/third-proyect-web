@@ -77,11 +77,11 @@ export class ProfileComponent implements OnInit {
       return o.user._id == that.user._id;
     });
     userTimetables.forEach(timetable => {
-      let timetablePricing = _.filter(this.pricings, function (o) {
+      let timetablePricing = _.find(this.pricings, function (o) {
         return (o.treatment._id == timetable.treatment._id
           && o.insurance._id == timetable.client.insurance._id);
       });
-      this.invoice += timetablePricing[0].price
+      this.invoice += timetablePricing.price
     });
   }
 
