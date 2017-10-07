@@ -10,6 +10,8 @@ import { TreatmentService } from './../shared/services/treatment.service';
 import { Treatment } from './../shared/models/treatment.model';
 import { UserService } from './../shared/services/user.service';
 import { User } from './../shared/models/user.model';
+import { PricingService } from './../shared/services/pricing.service';
+import { Pricing } from './../shared/models/pricing.model';
 
 @Component({
   selector: 'app-timetables',
@@ -20,9 +22,10 @@ export class TimetablesComponent implements OnInit {
 
   timetables: Array<Timetable>
   clients: Array<Client>
+  pricings: Array<Pricing>
   treatments: Array<Treatment>
   users: Array<User>
-  newTimetable: Timetable = new Timetable
+  newTimetable: Timetable = new Timetable()
   datedate: any
   datetime: any
   patternDate: string
@@ -32,21 +35,24 @@ export class TimetablesComponent implements OnInit {
   patternUser: string
   patternNotes: string
   patternInfo: string
+  chosenClient: Client = new Client()
 
   constructor(
-    private TimetableService: TimetableService,
+    private timetableService: TimetableService,
     private clientService: ClientService,
     private treatmentService: TreatmentService,
     private userService: UserService,
+    private pricingService: PricingService,
     private modalService: ModalService
   ) { }
 
   ngOnInit(): void {
     this.loadTimetables()
+    this.chosenClient.insurance = ''
   }
 
   loadTimetables(): void {
-    this.TimetableService.getTimetables().subscribe(({ data, loading }) => {
+    this.timetableService.getTimetables().subscribe(({ data, loading }) => {
       this.timetables = data.getTimetables;
     });
   }
@@ -69,9 +75,16 @@ export class TimetablesComponent implements OnInit {
     });
   }
 
+  loadPricings(): void {
+    this.pricingService.getPricings().subscribe(({ data, loading }) => {
+      this.pricings = data.getPricings;
+    });
+  }
+
   onSubmitCreate(createForm): void {
     console.log(this.newTimetable)
-    this.TimetableService.createTimetable(this.newTimetable).subscribe(data => {
+    this.newTimetable.client = this.chosenClient._id
+    this.timetableService.createTimetable(this.newTimetable).subscribe(data => {
       this.loadTimetables()
       createForm.reset()
       window.location.reload()
@@ -82,6 +95,7 @@ export class TimetablesComponent implements OnInit {
     this.loadClients()
     this.loadTreatments()
     this.loadUsers()
+    this.loadPricings()
     this.modalService.open(modalCreate)
   }
 

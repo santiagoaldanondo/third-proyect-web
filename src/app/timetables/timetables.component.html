@@ -87,15 +87,17 @@
 
       <div class="main-input">
         <label class="main-input" for="client">Client Phone</label>
-        <select class="main-input" name="client" [(ngModel)]="newTimetable.client">
-          <option class="main-input" *ngFor="let client of clients" [ngValue]="client._id">{{client.phone}}</option>
+        <select class="main-input" name="client" [(ngModel)]="chosenClient">
+          <option class="main-input" *ngFor="let client of clients" [ngValue]="client">
+            {{client.phone}}
+          </option>
         </select>
       </div>
 
       <div class="main-input">
-        <label class="main-input" for="treatment">Treatment</label>
-        <select class="main-input" name="treatment" [(ngModel)]="newTimetable.treatment">
-          <option class="main-input" *ngFor="let treatment of treatments" [ngValue]="treatment._id">{{treatment.description}}</option>
+        <label class="main-input" for="pricing">Treatmente</label>
+        <select class="main-input" name="pricing" [(ngModel)]="newTimetable.treatment">
+          <option class="main-input" *ngFor="let pricing of pricings | filterPopulate:'insurance':'_id':chosenClient.insurance._id" [ngValue]="pricing.treatment._id">{{pricing.treatment.description}}</option>
         </select>
       </div>
 

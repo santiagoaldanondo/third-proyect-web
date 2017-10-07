@@ -52,7 +52,8 @@ const routes: Routes = [
       { path: 'insurances', component: InsurancesComponent },
       { path: 'pricings', component: PricingsComponent },
     ]
-  }
+  },
+  { path: '**', redirectTo: 'home' }
 ]
 @NgModule({
   declarations: [

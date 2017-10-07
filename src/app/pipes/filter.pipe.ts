@@ -7,6 +7,10 @@ export class FilterPipe implements PipeTransform {
 
   transform(items: any[], field: string, value: string): any[] {
 
+    console.log(items)
+    console.log(field)
+    console.log(value)
+
     if (!items) {
       return [];
     }
