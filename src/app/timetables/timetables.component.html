@@ -95,7 +95,7 @@
       </div>
 
       <div class="main-input">
-        <label class="main-input" for="pricing">Treatmente</label>
+        <label class="main-input" for="pricing">Treatment</label>
         <select class="main-input" name="pricing" [(ngModel)]="newTimetable.treatment">
           <option class="main-input" *ngFor="let pricing of pricings | filterPopulate:'insurance':'_id':chosenClient.insurance._id" [ngValue]="pricing.treatment._id">{{pricing.treatment.description}}</option>
         </select>

@@ -44,6 +44,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   {
     path: 'account', component: AccountComponent, children: [
+      { path: '', redirectTo: 'profile', pathMatch: 'full' },
       { path: 'timetables', component: TimetablesComponent },
       { path: 'clients', component: ClientsComponent },
       { path: 'profile', component: ProfileComponent },
