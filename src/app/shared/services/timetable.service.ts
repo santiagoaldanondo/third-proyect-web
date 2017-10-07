@@ -24,6 +24,10 @@ export class TimetableService {
           firstName
           lastName
           phone
+          insurance {
+            _id
+            name
+          }
         }
         treatment {
           _id
@@ -69,6 +73,10 @@ export class TimetableService {
             firstName
             lastName
             phone
+            insurance {
+              _id
+              name
+            }
           }
           treatment {
             _id
@@ -123,6 +131,10 @@ export class TimetableService {
             firstName
             lastName
             phone
+            insurance {
+              _id
+              name
+            }
           }
           treatment {
             _id
