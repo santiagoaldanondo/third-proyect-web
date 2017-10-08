@@ -16,6 +16,9 @@
       <th>
         <mfDefaultSorter by="email">Email</mfDefaultSorter>
       </th>
+      <th>
+        <mfDefaultSorter by="isAdmin">Admin</mfDefaultSorter>
+      </th>
     </tr>
     <tr>
       <th>
@@ -34,6 +37,7 @@
       <td>{{user.firstName}}</td>
       <td>{{user.lastName}}</td>
       <td>{{user.email}}</td>
+      <td>{{user.isAdmin}}</td>
     </tr>
   </tbody>
   <tfoot>
@@ -57,6 +61,7 @@
     <form (ngSubmit)="onSubmitCreate(createForm)" #createForm="ngForm" class="main-form">
       <div><input class="main-input" type="text" placeholder="First Name" name="firstName" [(ngModel)]="newUser.firstName" required></div>
       <div><input class="main-input" type="text" placeholder="Last Name" name="lastName" [(ngModel)]="newUser.lastName" required></div>
+      <div><input class="main-input" type="checkbox" name="isAdmin" [(ngModel)]="newUser.isAdmin">Admin Permissions</div>
       <div><input class="main-input" type="text" placeholder="email" name="email" [(ngModel)]="newUser.email" required></div>
       <div><input class="main-input" type="password" placeholder="password" name="password" [(ngModel)]="newUser.password" required></div>
 

@@ -39,7 +39,8 @@ export class AuthService {
     }
 
     isAdmin(): boolean {
-        return (this.authUser()._id === this.authAccount().owner) ? true : false;
+        return (this.authUser()._id === this.authAccount().owner
+            || this.authUser().isAdmin) ? true : false;
     }
 
     authenticate(data: any): void {

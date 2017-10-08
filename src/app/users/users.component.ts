@@ -32,6 +32,7 @@ export class UsersComponent implements OnInit {
   }
 
   onSubmitCreate(createForm): void {
+    console.log(this.newUser)
     this.userService.addToAccount(this.newUser).subscribe(data => {
       this.loadUsers()
       createForm.reset()

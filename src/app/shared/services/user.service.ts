@@ -22,6 +22,7 @@ export class UserService {
         firstName
         lastName
         email
+        isAdmin
       }
     }`;
 
@@ -36,17 +37,20 @@ export class UserService {
       $lastName: String!,
       $email: String!,
       $password: String!
+      $isAdmin: Boolean!
     ) {
       addToAccount(
           firstName: $firstName,
           lastName: $lastName,
           email: $email,
-          password: $password
+          password: $password,
+          isAdmin: $isAdmin
         ) {
           _id
           firstName
           lastName
-          email          
+          email
+          isAdmin        
         }
       }`;
     return this.apollo.mutate({
@@ -55,7 +59,8 @@ export class UserService {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
-        password: user.password
+        password: user.password,
+        isAdmin: user.isAdmin
       }
     })
   }
@@ -66,13 +71,15 @@ export class UserService {
       $_id: String!
       $firstName: String!,
       $lastName: String!,
-      $email: String!
+      $email: String!,
+      $isAdmin: Boolean!
     ) {
         updateUser(
           _id: $_id,
           firstName: $firstName,
           lastName: $lastName,
-          email: $email
+          email: $email,
+          isAdmin: $isAdmin
         ) 
       }`;
     return this.apollo.mutate({
@@ -81,7 +88,8 @@ export class UserService {
         _id: user._id,
         firstName: user.firstName,
         lastName: user.lastName,
-        email: user.email
+        email: user.email,
+        isAdmin: user.isAdmin
       }
     })
   }

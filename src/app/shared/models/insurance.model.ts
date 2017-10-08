@@ -1,5 +1,5 @@
 export class Insurance {
-    _id: string;
-    name: string;
-    account: string;
+    _id: string
+    name: string
+    account: string
 }
