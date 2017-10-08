@@ -22,6 +22,7 @@ export class AuthService {
     }
 
     decodeToken(): any {
+        console.log(jwtDecode(this.token))
         return jwtDecode(this.token);
     }
 
@@ -35,6 +36,10 @@ export class AuthService {
 
     isAuthenticated(): boolean {
         return (this.token) ? true : false;
+    }
+
+    isAdmin(): boolean {
+        return (this.authUser()._id === this.authAccount().owner) ? true : false;
     }
 
     authenticate(data: any): void {

@@ -34,6 +34,7 @@ import { PricingService } from './shared/services/pricing.service';
 import { ClientService } from './shared/services/client.service';
 import { TimetableService } from './shared/services/timetable.service';
 import { AuthGuardService } from './shared/services/auth-guard.service';
+import { AdminGuardService } from './shared/services/admin-guard.service';
 
 import { FilterPipe } from './pipes/filter.pipe';
 import { FilterPopulatePipe } from './pipes/filter-populate.pipe';
@@ -49,10 +50,10 @@ const routes: Routes = [
       { path: 'timetables', component: TimetablesComponent },
       { path: 'clients', component: ClientsComponent },
       { path: 'profile', component: ProfileComponent },
-      { path: 'users', component: UsersComponent },
-      { path: 'treatments', component: TreatmentsComponent },
-      { path: 'insurances', component: InsurancesComponent },
-      { path: 'pricings', component: PricingsComponent },
+      { path: 'users', canActivate: [AdminGuardService], component: UsersComponent },
+      { path: 'treatments', canActivate: [AdminGuardService], component: TreatmentsComponent },
+      { path: 'insurances', canActivate: [AdminGuardService], component: InsurancesComponent },
+      { path: 'pricings', canActivate: [AdminGuardService], component: PricingsComponent },
     ]
   },
   { path: '**', redirectTo: 'home' }
@@ -93,7 +94,8 @@ const routes: Routes = [
     PricingService,
     ClientService,
     TimetableService,
-    AuthGuardService
+    AuthGuardService,
+    AdminGuardService
   ],
   bootstrap: [AppComponent]
 })

@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 export class NavbarComponent implements OnInit {
   mainItems: any[]
   adminItems: any[]
+  isAdmin: boolean = false
   user: User
   account: Account
 
@@ -26,6 +27,7 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
     this.user = this.authService.authUser()
     this.account = this.authService.authAccount()
+    this.isAdmin = this.authService.isAdmin()
   }
 
   logout(): void {

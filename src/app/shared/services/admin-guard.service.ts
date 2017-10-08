@@ -3,16 +3,17 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { AuthService } from './auth.service';
 
+
 @Injectable()
-export class AuthGuardService {
+export class AdminGuardService {
 
   constructor(private router: Router, private authService: AuthService) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    if (this.authService.isAuthenticated()) {
+    if (this.authService.isAdmin()) {
       return true
     } else {
-      this.router.navigate(['/home']);
+      this.router.navigate(['/account/profile']);
       return false
     }
   }

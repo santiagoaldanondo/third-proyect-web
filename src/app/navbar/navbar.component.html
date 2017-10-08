@@ -2,7 +2,7 @@
   <button *ngFor="let mainItem of mainItems" [routerLink]="[mainItem.path]" ngbButton class="fixedwidth btn-primary">
       {{mainItem.title}}
   </button>
-  <div ngbDropdown>
+  <div *ngIf="isAdmin" ngbDropdown>
     <button class="fixedwidth btn-primary" id="dropdownConfig" ngbDropdownToggle>Admin</button>
     <div class="fixedwidth" ngbDropdownMenu aria-labelledby="dropdownConfig">
       <button *ngFor="let adminItem of adminItems" class="fixedwidth btn-primary" [routerLink]="[adminItem.path]">{{adminItem.title}}</button>
