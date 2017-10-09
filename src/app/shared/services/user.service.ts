@@ -26,7 +26,7 @@ export class UserService {
       }
     }`;
 
-    return this.apollo.query({
+    return this.apollo.watchQuery({
       query: getUsers
     })
   }

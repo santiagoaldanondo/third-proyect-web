@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Injectable()
 export class ModalService {
@@ -8,15 +8,18 @@ export class ModalService {
 
   constructor(private ngbModal: NgbModal) { }
 
+  ngbModalRef: NgbModalRef;
+
   open(modal) {
-    this.ngbModal.open(modal).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+    this.ngbModalRef = this.ngbModal.open(modal)
+    return this.ngbModalRef
   }
 
-  private getDismissReason(reason: any): string {
+  close() {
+    this.ngbModalRef.close();
+  }
+
+  getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
@@ -25,4 +28,5 @@ export class ModalService {
       return `with: ${reason}`;
     }
   }
+
 }

@@ -30,7 +30,7 @@ export class PricingService {
       }
     }`;
 
-    return this.apollo.query({
+    return this.apollo.watchQuery({
       query: getPricings
     })
   }

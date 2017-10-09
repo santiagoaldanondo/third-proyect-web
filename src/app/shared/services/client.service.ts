@@ -30,7 +30,7 @@ export class ClientService {
         }
       }`;
 
-    return this.apollo.query({
+    return this.apollo.watchQuery({
       query: getClients
     })
   }

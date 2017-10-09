@@ -44,7 +44,7 @@ export class TimetableService {
       }
     }`;
 
-    return this.apollo.query({
+    return this.apollo.watchQuery({
       query: getTimetables
     })
   }

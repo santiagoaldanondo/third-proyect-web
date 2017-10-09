@@ -24,7 +24,7 @@ export class TreatmentService {
       }
     }`;
 
-    return this.apollo.query({
+    return this.apollo.watchQuery({
       query: getTreatments
     })
   }

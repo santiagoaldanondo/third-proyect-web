@@ -26,19 +26,29 @@ export class InsurancesComponent implements OnInit {
     this.insuranceService.getInsurances().subscribe(({ data, loading }) => {
       this.insurances = data.getInsurances;
       this.loading = loading;
-    });
+      console.log(this.insurances)
+    }, (error) => {
+      console.log('there was an error sending the query', error);
+    })
   }
 
   onSubmitCreate(createForm): void {
-    this.insuranceService.createInsurance(this.newInsurance).subscribe(data => {
-      this.loadInsurances()
+    this.insuranceService.createInsurance(this.newInsurance).subscribe(() => {
+      // this.loadInsurances()
+      this.modalService.close()
       createForm.reset()
-      window.location.reload()
+      // window.location.reload()
+    }, (error) => {
+      console.log('there was an error sending the query', error);
     })
   }
 
   open(modalCreate): void {
-    this.modalService.open(modalCreate)
+    this.modalService.open(modalCreate).result.then((result) => {
+      this.modalService.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.modalService.closeResult = `Dismissed ${this.modalService.getDismissReason(reason)}`;
+    });
   }
 
 }

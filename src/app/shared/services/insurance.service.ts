@@ -16,14 +16,14 @@ export class InsuranceService {
   constructor(private apollo: Apollo) { }
 
   getInsurances(): Observable<any> {
-    const getInsurances = graphqlTag`query {
+    const getInsurances = graphqlTag`query getInsurances {
       getInsurances {
         _id
         name
       }
     }`;
 
-    return this.apollo.query({
+    return this.apollo.watchQuery({
       query: getInsurances
     })
   }
@@ -35,6 +35,7 @@ export class InsuranceService {
         createInsurance(
           name: $name,
         ) {
+          __typename
           _id
           name
         }
@@ -43,7 +44,29 @@ export class InsuranceService {
       mutation: mutation,
       variables: {
         name: insurance.name,
-      }
+      },
+      optimisticResponse: {
+        __typename: 'Mutation',
+        createInsurance: {
+          __typename: 'Insurance',
+          _id: null,
+          name: insurance.name,
+        },
+      },
+      updateQueries: {
+        getInsurances: (prev, { mutationResult }) => {
+          console.log(mutationResult.data.createInsurance)
+          const newInsurance: Insurance = mutationResult.data.createInsurance;
+          const prevInsurances = prev.getInsurances;
+
+          console.log(newInsurance)
+          console.log(prevInsurances)
+
+          return {
+            getInsurances: prevInsurances.push(newInsurance)
+          };
+        },
+      },
     })
   }
 
