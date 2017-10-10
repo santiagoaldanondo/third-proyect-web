@@ -6,9 +6,9 @@ const wsClient = new SubscriptionClient(config.wsUrl);
 
 const networkInterface = createNetworkInterface({
   uri: config.apiUrl,
-  opts: {
-    credentials: 'same-origin',
-  },
+  // opts: {
+  //   credentials: 'same-origin',
+  // },
 });
 networkInterface.use([
   {
@@ -30,7 +30,7 @@ const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(
 );
 
 const client = new ApolloClient({
-  networkInterface,
+  networkInterface: networkInterfaceWithSubscriptions,
   dataIdFromObject: o => o["_id"]
 });
 
