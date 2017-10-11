@@ -4,7 +4,6 @@ import { TreatmentService } from './../shared/services/treatment.service';
 import { TimetableService } from './../shared/services/timetable.service';
 import { InsuranceService } from './../shared/services/insurance.service';
 import { ClientService } from './../shared/services/client.service';
-import { LoadingComponent } from './../../../../../githunt-graphql/GitHunt-Angular/src/app/shared/loading.component';
 import { AuthService } from './../shared/services/auth.service';
 import { User } from './../shared/models/user.model';
 import { Account } from './../shared/models/account.model';

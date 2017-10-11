@@ -17,7 +17,6 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AccountComponent } from './account/account.component';
 import { InsurancesComponent } from './insurances/insurances.component';
-import { InsurancesDetailComponent } from './insurances/insurances-detail.component';
 import { PricingsComponent } from './pricings/pricings.component';
 import { ClientsComponent } from './clients/clients.component';
 import { TimetablesComponent } from './timetables/timetables.component';
@@ -68,7 +67,6 @@ const routes: Routes = [
     RegisterComponent,
     AccountComponent,
     InsurancesComponent,
-    InsurancesDetailComponent,
     PricingsComponent,
     ClientsComponent,
     TimetablesComponent,
