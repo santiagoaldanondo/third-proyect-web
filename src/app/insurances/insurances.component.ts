@@ -24,6 +24,7 @@ export class InsurancesComponent implements OnInit {
 
   loadInsurances(): void {
     this.insuranceService.getInsurances().subscribe(({ data, loading }) => {
+      console.log(data)
       this.insurances = data.getInsurances;
       this.loading = loading;
       console.log(this.insurances)

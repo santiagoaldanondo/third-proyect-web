@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ApolloModule } from 'apollo-angular';
 import { DataTableModule } from "angular2-datatable";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import './rxjs.operators'
 import { apolloClient } from './client';
@@ -16,13 +17,13 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AccountComponent } from './account/account.component';
 import { InsurancesComponent } from './insurances/insurances.component';
+import { InsurancesDetailComponent } from './insurances/insurances-detail.component';
 import { PricingsComponent } from './pricings/pricings.component';
 import { ClientsComponent } from './clients/clients.component';
 import { TimetablesComponent } from './timetables/timetables.component';
 import { TreatmentsComponent } from './treatments/treatments.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ProfileComponent } from './profile/profile.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ModalService } from './shared/services/modal.service';
 
@@ -67,6 +68,7 @@ const routes: Routes = [
     RegisterComponent,
     AccountComponent,
     InsurancesComponent,
+    InsurancesDetailComponent,
     PricingsComponent,
     ClientsComponent,
     TimetablesComponent,

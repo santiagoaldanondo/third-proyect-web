@@ -19,7 +19,7 @@
   </thead>
   <tbody>
     <tr *ngFor="let insurance of mf.data">
-      <td>{{insurance.name}}</td>
+      <app-insurances-detail [insurance]="insurance"></app-insurances-detail>
     </tr>
   </tbody>
   <tfoot>
