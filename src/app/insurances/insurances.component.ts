@@ -24,10 +24,8 @@ export class InsurancesComponent implements OnInit {
 
   loadInsurances(): void {
     this.insuranceService.getInsurances().subscribe(({ data, loading }) => {
-      console.log(data)
       this.insurances = data.getInsurances;
       this.loading = loading;
-      console.log(this.insurances)
     }, (error) => {
       console.log('there was an error sending the query', error);
     })
@@ -35,10 +33,8 @@ export class InsurancesComponent implements OnInit {
 
   onSubmitCreate(createForm): void {
     this.insuranceService.createInsurance(this.newInsurance).subscribe(() => {
-      // this.loadInsurances()
       this.modalService.close()
       createForm.reset()
-      // window.location.reload()
     }, (error) => {
       console.log('there was an error sending the query', error);
     })

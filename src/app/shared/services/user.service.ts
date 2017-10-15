@@ -66,7 +66,6 @@ export class UserService {
   }
 
   updateUser(user: User): Observable<any> {
-    console.log(user)
     const mutation = graphqlTag`mutation(
       $_id: String!
       $firstName: String!,

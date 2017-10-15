@@ -43,7 +43,6 @@ export class ClientsComponent implements OnInit {
   }
 
   onSubmitCreate(createForm): void {
-    console.log(this.newClient)
     this.clientService.createClient(this.newClient).subscribe(data => {
       this.loadClients()
       createForm.reset()

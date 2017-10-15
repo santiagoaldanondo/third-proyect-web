@@ -82,7 +82,6 @@ export class TimetablesComponent implements OnInit {
   }
 
   onSubmitCreate(createForm): void {
-    console.log(this.newTimetable)
     this.newTimetable.client = this.chosenClient._id
     this.timetableService.createTimetable(this.newTimetable).subscribe(data => {
       this.loadTimetables()

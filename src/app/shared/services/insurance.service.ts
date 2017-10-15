@@ -55,12 +55,9 @@ export class InsuranceService {
       },
       updateQueries: {
         getInsurances: (prev, { mutationResult }) => {
-          console.log(mutationResult.data.createInsurance)
           const newInsurance: Insurance = mutationResult.data.createInsurance;
           const prevInsurances: Array<Insurance> = prev.getInsurances;
-          console.log(prevInsurances)
           prevInsurances.push(newInsurance)
-          console.log(prevInsurances)
 
           return { getInsurances: prevInsurances }
         },

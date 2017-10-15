@@ -47,7 +47,6 @@ export class PricingsComponent implements OnInit {
   }
 
   onSubmitCreate(createForm): void {
-    console.log(this.newPricing)
     this.pricingService.createPricing(this.newPricing).subscribe(data => {
       this.loadPricings()
       createForm.reset()

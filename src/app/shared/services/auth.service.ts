@@ -22,7 +22,6 @@ export class AuthService {
     }
 
     decodeToken(): any {
-        console.log(jwtDecode(this.token))
         return jwtDecode(this.token);
     }
 
