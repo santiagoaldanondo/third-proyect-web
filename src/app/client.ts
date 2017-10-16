@@ -2,14 +2,28 @@ import config from '../config';
 import { ApolloClient, createNetworkInterface } from 'apollo-client';
 
 import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-transport-ws';
-const wsClient = new SubscriptionClient(config.wsUrl);
+const wsClient = new SubscriptionClient(config.wsUrl, {
+  reconnect: true,
+  connectionParams: {
+    authToken: localStorage.getItem("JWT_TOKEN"),
+  }
+});
 
+
+// const networkInterface = createBatchingNetworkInterface({
+//   batchInterval: 10,
 const networkInterface = createNetworkInterface({
   uri: config.apiUrl,
   // opts: {
   //   credentials: 'same-origin',
   // },
 });
+
+const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(
+  networkInterface,
+  wsClient,
+);
+
 networkInterface.use([
   {
     applyMiddleware(req, next) {
@@ -23,11 +37,6 @@ networkInterface.use([
     }
   }
 ]);
-
-const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(
-  networkInterface,
-  wsClient,
-);
 
 const client = new ApolloClient({
   networkInterface: networkInterfaceWithSubscriptions,
