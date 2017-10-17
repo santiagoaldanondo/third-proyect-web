@@ -1,3 +1,11 @@
+.main-intro {
+    color: #0044cc;
+    margin: 5vh auto;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+
 .main-form {
     margin: 20vh auto;
     text-align: center;

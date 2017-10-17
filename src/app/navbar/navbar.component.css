@@ -1,4 +1,4 @@
-.right {
+.user-account {
     vertical-align: center;
     margin: auto;
     font-weight: bold;
@@ -16,12 +16,32 @@
     margin: auto;
 }
 
-.nav-item {
-    float: right
+.fixed-width {
+    width: 120px;
+    height: 40px;
+    font-size: 14px;
 }
 
-.fixedwidth {
-    min-width: 150px;
-    max-width: 150px;
-    height: 40px;
+.logout {
+    display: block;
+    float: right;
+}
+
+@media(max-width:800px) {
+    .fixed-width {
+        width: 20vw;
+        height: 40px;
+        font-size: 14px;
+    }
+    .user-account {
+        display: none;
+    }
+}
+
+@media(max-width:400px) {
+    .fixed-width {
+        width: 20vw;
+        height: 40px;
+        font-size: 10px;
+    }
 }

@@ -6,6 +6,9 @@ import { NgModule } from '@angular/core';
 import { ApolloModule } from 'apollo-angular';
 import { DataTableModule } from "angular2-datatable";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MatMenuModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 import './rxjs.operators'
 import { apolloClient } from './client';
@@ -83,7 +86,9 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     ApolloModule.forRoot(apolloClient),
     NgbModule.forRoot(),
-    DataTableModule
+    DataTableModule,
+    MatMenuModule,
+    BrowserAnimationsModule
   ],
   providers: [
     ModalService,

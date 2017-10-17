@@ -1,18 +1,18 @@
 <nav class="main-nav row">
-  <button *ngFor="let mainItem of mainItems" [routerLink]="[mainItem.path]" ngbButton class="fixedwidth btn-primary" (mouseover)="prefetchMain()">
-      {{mainItem.title}}
+  <button *ngFor="let mainItem of mainItems" [routerLink]="[mainItem.path]" ngbButton class="fixed-width btn-primary" (mouseover)="prefetchMain()">
+    {{mainItem.title}}
   </button>
   <div *ngIf="isAdmin" ngbDropdown>
-    <button class="fixedwidth btn-primary" id="dropdownConfig" ngbDropdownToggle (mouseover)="prefetchAdmin()">Admin</button>
-    <div class="fixedwidth" ngbDropdownMenu aria-labelledby="dropdownConfig">
-      <button *ngFor="let adminItem of adminItems" class="fixedwidth btn-primary" [routerLink]="[adminItem.path]">{{adminItem.title}}</button>
+    <button class="fixed-width btn-primary" id="dropdownConfig" ngbDropdownToggle (mouseover)="prefetchAdmin()">Admin</button>
+    <div class="fixed-width" ngbDropdownMenu aria-labelledby="dropdownConfig">
+      <button *ngFor="let adminItem of adminItems" class="fixed-width btn-primary" [routerLink]="[adminItem.path]">{{adminItem.title}}</button>
     </div>
   </div>
-  <div class=" right ">
+  <div class="user-account">
     {{user.firstName}} in {{account.description}}
   </div>
-  <button class="fixedwidth btn-danger " (click)="logout() ">
+  <button class="fixed-width logout btn-danger" (click)="logout()">
     Logout
   </button>
 </nav>
-<div class="clearfix "></div>
+<div class="clearfix"></div>
