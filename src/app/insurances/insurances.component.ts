@@ -1,15 +1,11 @@
 import { ModalService } from './../shared/services/modal.service';
 import { Component, OnInit } from '@angular/core';
 
-import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-
-import { Apollo, ApolloQueryObservable } from 'apollo-angular';
+import { ApolloQueryObservable } from 'apollo-angular';
 
 import { InsuranceService } from './../shared/services/insurance.service';
 import { Insurance } from './../shared/models/insurance.model';
-
-
 
 @Component({
   selector: 'app-insurances',
@@ -30,7 +26,6 @@ export class InsurancesComponent implements OnInit {
 
   ngOnInit(): void {
     this.insuranceObs = this.insuranceService.getInsurances()
-
     this.insuranceSub = this.insuranceObs.subscribe(({ data, loading }) => {
       this.insurances = data.getInsurances;
       this.loading = loading;
@@ -43,7 +38,6 @@ export class InsurancesComponent implements OnInit {
         const newInsurance: Insurance = data.insuranceAdded;
         this.insuranceObs.updateQuery((prev) => {
           const prevInsurances: Array<Insurance> = JSON.parse(JSON.stringify(prev.getInsurances));
-          console.log("subs")
           prevInsurances.push(newInsurance)
           return { getInsurances: prevInsurances }
         });
@@ -64,11 +58,7 @@ export class InsurancesComponent implements OnInit {
   }
 
   open(modalCreate): void {
-    this.modalService.open(modalCreate).result.then((result) => {
-      this.modalService.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.modalService.closeResult = `Dismissed ${this.modalService.getDismissReason(reason)}`;
-    });
+    this.modalService.open(modalCreate)
   }
 
 }

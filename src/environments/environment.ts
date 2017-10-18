@@ -6,5 +6,5 @@
 export const environment = {
   production: false,
   apiUrl: 'http://localhost:3000/api/graphql',
-  wsUrl: 'ws://citayfactura.es/api/subscriptions'
+  wsUrl: 'ws://localhost:3000/api/subscriptions'
 };

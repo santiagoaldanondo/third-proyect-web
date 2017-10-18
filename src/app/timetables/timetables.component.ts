@@ -2,6 +2,9 @@
 import { ModalService } from './../shared/services/modal.service';
 import { Component, OnInit } from '@angular/core';
 
+import { Subscription } from 'rxjs/Subscription';
+import { ApolloQueryObservable } from 'apollo-angular';
+
 import { TimetableService } from './../shared/services/timetable.service';
 import { Timetable } from './../shared/models/timetable.model';
 import { ClientService } from './../shared/services/client.service';
@@ -20,6 +23,7 @@ import { Pricing } from './../shared/models/pricing.model';
 })
 export class TimetablesComponent implements OnInit {
 
+  loading = true
   timetables: Array<Timetable>
   clients: Array<Client>
   pricings: Array<Pricing>
@@ -36,6 +40,9 @@ export class TimetablesComponent implements OnInit {
   patternNotes: string
   patternInfo: string
   chosenClient: Client = new Client()
+  timetableObs: ApolloQueryObservable<any>;
+  timetableSub: Subscription;
+  subscriptionSub: Subscription;
 
   constructor(
     private timetableService: TimetableService,
@@ -47,7 +54,27 @@ export class TimetablesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.loadTimetables()
+    this.timetableObs = this.timetableService.getTimetables()
+    this.timetableSub = this.timetableObs.subscribe(({ data, loading }) => {
+      this.timetables = data.getTimetables;
+      this.loading = loading;
+    }, (error) => {
+      console.log('there was an error sending the query', error);
+    })
+
+    this.subscriptionSub = this.timetableService.timetableAdded().subscribe({
+      next: (data) => {
+        const newTimetable: Timetable = data.timetableAdded;
+        this.timetableObs.updateQuery((prev) => {
+          const prevTimetables: Array<Timetable> = JSON.parse(JSON.stringify(prev.getTimetables));
+          prevTimetables.push(newTimetable)
+          return { getTimetables: prevTimetables }
+        });
+      },
+      error(err: any): void {
+        console.error('err', err);
+      }
+    });
     this.chosenClient.insurance = ''
   }
 
@@ -83,10 +110,11 @@ export class TimetablesComponent implements OnInit {
 
   onSubmitCreate(createForm): void {
     this.newTimetable.client = this.chosenClient._id
-    this.timetableService.createTimetable(this.newTimetable).subscribe(data => {
-      this.loadTimetables()
+    this.timetableService.createTimetable(this.newTimetable).subscribe(() => {
+      this.modalService.close()
       createForm.reset()
-      window.location.reload()
+    }, (error) => {
+      console.log('there was an error sending the query', error);
     })
   }
 

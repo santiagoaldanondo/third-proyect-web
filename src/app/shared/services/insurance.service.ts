@@ -1,8 +1,6 @@
 
-import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
 
 import { Apollo, ApolloQueryObservable } from 'apollo-angular';
 import graphqlTag from 'graphql-tag';
@@ -27,6 +25,23 @@ export class InsuranceService {
 
     return this.apollo.watchQuery({
       query: getInsurances
+    })
+  }
+
+  insuranceAdded(): Observable<any> {
+    const insuranceAdded = graphqlTag`
+    subscription insuranceAdded {
+      insuranceAdded {
+        __typename
+        _id
+        name
+      }
+    }
+  `;
+
+    return this.apollo.subscribe({
+      query: insuranceAdded,
+      variables: {}
     })
   }
 
@@ -71,23 +86,6 @@ export class InsuranceService {
           return { getInsurances: prevInsurances }
         },
       },
-    })
-  }
-
-  insuranceAdded(): Observable<any> {
-    const insuranceAdded = graphqlTag`
-    subscription insuranceAdded {
-      insuranceAdded {
-        __typename
-        _id
-        name
-      }
-    }
-  `;
-
-    return this.apollo.subscribe({
-      query: insuranceAdded,
-      variables: {}
     })
   }
 

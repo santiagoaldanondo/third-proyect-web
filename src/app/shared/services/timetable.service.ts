@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-import { Apollo } from 'apollo-angular';
+import { Apollo, ApolloQueryObservable } from 'apollo-angular';
 import graphqlTag from 'graphql-tag';
 
 import { Timetable } from './../models/timetable.model';
@@ -14,7 +14,7 @@ export class TimetableService {
 
   constructor(private apollo: Apollo) { }
 
-  getTimetables(): Observable<any> {
+  getTimetables(): ApolloQueryObservable<any> {
     const getTimetables = graphqlTag`query {
       getTimetables {
         _id
@@ -102,6 +102,45 @@ export class TimetableService {
         notes: timetable.notes,
         info: timetable.info,
       }
+    })
+  }
+
+  timetableAdded(): Observable<any> {
+    const timetableAdded = graphqlTag`
+    subscription timetableAdded {
+      timetableAdded {
+        __typename
+        _id
+        date
+        client {
+          _id
+          firstName
+          lastName
+          phone
+          insurance {
+            _id
+            name
+          }
+        }
+        treatment {
+          _id
+          description
+        }
+        user {
+          _id
+          firstName
+          lastName
+          email
+        }
+        notes
+        info
+      }
+    }
+  `;
+
+    return this.apollo.subscribe({
+      query: timetableAdded,
+      variables: {}
     })
   }
 
