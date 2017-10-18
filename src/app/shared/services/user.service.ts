@@ -14,7 +14,7 @@ export class UserService {
   constructor(private apollo: Apollo) { }
 
   getUsers(): ApolloQueryObservable<any> {
-    const getUsers = graphqlTag`query {
+    const getUsers = graphqlTag`query getUsers{
       getUsers {
         _id
         firstName
@@ -30,7 +30,7 @@ export class UserService {
   }
 
   addToAccount(user: User): Observable<any> {
-    const mutation = graphqlTag`mutation(
+    const mutation = graphqlTag`mutation addToAccount(
       $firstName: String!,
       $lastName: String!,
       $email: String!,
@@ -44,6 +44,7 @@ export class UserService {
           password: $password,
           isAdmin: $isAdmin
         ) {
+          __typename
           _id
           firstName
           lastName
@@ -58,7 +59,7 @@ export class UserService {
         lastName: user.lastName,
         email: user.email,
         password: user.password,
-        isAdmin: user.isAdmin
+        isAdmin: user.isAdmin,
       },
       optimisticResponse: {
         __typename: 'Mutation',
@@ -74,8 +75,10 @@ export class UserService {
       },
       updateQueries: {
         getUsers: (prev, { mutationResult }) => {
+          console.log(mutationResult)
           const newUser: User = mutationResult.data.addToAccount;
           const prevUsers: Array<User> = prev.getUsers;
+          prevUsers.push(newUser)
           return { getUsers: prevUsers }
         },
       },
@@ -83,7 +86,7 @@ export class UserService {
   }
 
   updateUser(user: User): Observable<any> {
-    const mutation = graphqlTag`mutation(
+    const mutation = graphqlTag`mutation updateUser(
       $_id: String!
       $firstName: String!,
       $lastName: String!,
@@ -111,7 +114,7 @@ export class UserService {
   }
 
   resetPassword(oldPassword, newPassword): Observable<any> {
-    const mutation = graphqlTag`mutation(
+    const mutation = graphqlTag`mutation resetPassword(
       $oldPassword: String!,
       $newPassword: String!,
     ) {

@@ -15,7 +15,7 @@ export class TimetableService {
   constructor(private apollo: Apollo) { }
 
   getTimetables(): ApolloQueryObservable<any> {
-    const getTimetables = graphqlTag`query {
+    const getTimetables = graphqlTag`query getTimetables{
       getTimetables {
         _id
         date
@@ -88,7 +88,7 @@ export class TimetableService {
   }
 
   createTimetable(timetable: Timetable): Observable<any> {
-    const mutation = graphqlTag`mutation(
+    const mutation = graphqlTag`mutation createTimetable(
       $date: Date!,
       $client: ID,
       $treatment: ID,
@@ -144,7 +144,7 @@ export class TimetableService {
   }
 
   updateTimetable(timetable: Timetable): Observable<any> {
-    const mutation = graphqlTag`mutation(
+    const mutation = graphqlTag`mutation updateTimetable(
       $_id: String!,
       $date: Date!,
       $client: ID,

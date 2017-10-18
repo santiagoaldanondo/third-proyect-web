@@ -15,7 +15,7 @@ export class PricingService {
   constructor(private apollo: Apollo) { }
 
   getPricings(): ApolloQueryObservable<any> {
-    const getPricings = graphqlTag`query {
+    const getPricings = graphqlTag`query getPricings{
       getPricings {
         _id
         treatment {
@@ -36,7 +36,7 @@ export class PricingService {
   }
 
   createPricing(pricing: Pricing): Observable<any> {
-    const mutation = graphqlTag`mutation(
+    const mutation = graphqlTag`mutation createPricing(
       $treatment: ID!,
       $insurance: ID!,
       $price: Float!
@@ -80,6 +80,7 @@ export class PricingService {
           console.log(mutationResult)
           const newPricing: Pricing = mutationResult.data.createPricing;
           const prevPricings: Array<Pricing> = prev.getPricings;
+          prevPricings.push(newPricing)
           return { getPricings: prevPricings }
         },
       },
@@ -87,7 +88,7 @@ export class PricingService {
   }
 
   updatePricing(pricing: Pricing): Observable<any> {
-    const mutation = graphqlTag`mutation(
+    const mutation = graphqlTag`mutation updatePricing(
       $_id: String!,
       $treatment: ID!,
       $insurance: ID!,

@@ -27,7 +27,7 @@ export class InsuranceService {
   }
 
   createInsurance(insurance: Insurance): Observable<any> {
-    const mutation = graphqlTag`mutation(
+    const mutation = graphqlTag`mutation createInsurance(
       $name: String!
     ) {
         createInsurance(
@@ -53,8 +53,10 @@ export class InsuranceService {
       },
       updateQueries: {
         getInsurances: (prev, { mutationResult }) => {
+          console.log(mutationResult)
           const newInsurance: Insurance = mutationResult.data.createInsurance;
           const prevInsurances: Array<Insurance> = prev.getInsurances;
+          prevInsurances.push(newInsurance)
           return { getInsurances: prevInsurances }
         },
       },
@@ -62,7 +64,7 @@ export class InsuranceService {
   }
 
   updateInsurance(insurance: Insurance): Observable<any> {
-    const mutation = graphqlTag`mutation(
+    const mutation = graphqlTag`mutation updateInsurance(
       $_id: String!,
       $name: String!
     ) {

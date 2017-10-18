@@ -16,7 +16,7 @@ export class InsurancesComponent implements OnInit {
 
   loading: boolean = true
   insurances: Array<Insurance>
-  newInsurance: Insurance = new Insurance
+  newInsurance: Insurance = new Insurance()
   patternName: string
   insuranceObs: ApolloQueryObservable<any>;
   insuranceSub: Subscription;
@@ -28,6 +28,7 @@ export class InsurancesComponent implements OnInit {
     this.insuranceObs = this.insuranceService.getInsurances()
     this.insuranceSub = this.insuranceObs.subscribe(({ data, loading }) => {
       this.insurances = data.getInsurances;
+      console.log(this.insurances)
       this.loading = loading;
     }, (error) => {
       console.log('there was an error sending the query', error);

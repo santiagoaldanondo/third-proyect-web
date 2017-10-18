@@ -31,6 +31,7 @@ export class UsersComponent implements OnInit {
     this.userObs = this.userService.getUsers()
     this.userSub = this.userObs.subscribe(({ data, loading }) => {
       this.users = data.getUsers;
+      console.log(this.users)
       this.loading = loading;
     }, (error) => {
       console.log('there was an error sending the query', error);
@@ -38,7 +39,6 @@ export class UsersComponent implements OnInit {
   }
 
   onSubmitCreate(createForm): void {
-    console.log(this.newUser)
     this.userService.addToAccount(this.newUser).subscribe(() => {
       this.modalService.close()
       createForm.reset()

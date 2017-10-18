@@ -14,7 +14,7 @@ export class TreatmentService {
   constructor(private apollo: Apollo) { }
 
   getTreatments(): ApolloQueryObservable<any> {
-    const getTreatments = graphqlTag`query {
+    const getTreatments = graphqlTag`query getTreatments{
       getTreatments {
         _id
         branch
@@ -29,7 +29,7 @@ export class TreatmentService {
   }
 
   createTreatment(treatment: Treatment): Observable<any> {
-    const mutation = graphqlTag`mutation(
+    const mutation = graphqlTag`mutation createTreatment(
       $branch: String,
       $code: String,
       $description: String!
@@ -64,8 +64,10 @@ export class TreatmentService {
       },
       updateQueries: {
         getTreatments: (prev, { mutationResult }) => {
+          console.log(mutationResult)
           const newTreatment: Treatment = mutationResult.data.createTreatment;
           const prevTreatments: Array<Treatment> = prev.getTreatments;
+          prevTreatments.push(newTreatment)
           return { getTreatments: prevTreatments }
         },
       },
@@ -73,7 +75,7 @@ export class TreatmentService {
   }
 
   updateTreatment(treatment: Treatment): Observable<any> {
-    const mutation = graphqlTag`mutation(
+    const mutation = graphqlTag`mutation updateTreatment(
       $_id: String!,
       $branch: String,
       $code: String,

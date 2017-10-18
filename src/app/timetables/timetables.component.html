@@ -57,10 +57,10 @@
     <tr *ngFor="let timetable of mf.data">
       <td>{{timetable.date | date:'dd/MM'}}</td>
       <td>{{timetable.date | date:'HH:mm'}}</td>
-      <td>{{timetable.client.phone}}</td>
-      <td>{{timetable.treatment.description}}</td>
-      <td>{{timetable.user.email}}</td>
-      <td>{{timetable.notes}}</td>
+      <td>{{timetable.client?.phone}}</td>
+      <td>{{timetable.treatment?.description}}</td>
+      <td>{{timetable.user?.email}}</td>
+      <td>{{timetable?.notes}}</td>
     </tr>
   </tbody>
   <tfoot>
@@ -77,13 +77,15 @@
   <div class="modal-header">
     <h4 class="modal-title">Add new timetable</h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
+      <span aria-hidden="true">&times;</span>
+    </button>
   </div>
   <div class="modal-body">
     <form (ngSubmit)="onSubmitCreate(createForm)" #createForm="ngForm" class="main-form">
 
-      <div><input class="main-input" type="datetime-local" placeholder="date" name="date" [(ngModel)]="newTimetable.date" required></div>
+      <div>
+        <input class="main-input" type="datetime-local" placeholder="date" name="date" [(ngModel)]="newTimetable.date" required>
+      </div>
 
       <div class="main-input">
         <label class="main-input" for="client">Client Phone</label>
@@ -97,18 +99,21 @@
       <div class="main-input">
         <label class="main-input" for="pricing">Treatment</label>
         <select class="main-input" name="pricing" [(ngModel)]="newTimetable.treatment">
-          <option class="main-input" *ngFor="let pricing of pricings | filterPopulate:'insurance':'_id':chosenClient.insurance._id" [ngValue]="pricing.treatment._id">{{pricing.treatment.description}}</option>
+          <option class="main-input" *ngFor="let pricing of pricings | filterPopulate:'insurance':'_id':chosenClient.insurance._id"
+            [ngValue]="pricing.treatment._id">{{pricing.treatment.description}}</option>
         </select>
       </div>
 
       <div class="main-input">
         <label class="main-input" for="user">User email</label>
         <select class="main-input" name="user" [(ngModel)]="newTimetable.user">
-            <option class="main-input" *ngFor="let user of users" [ngValue]="user._id">{{user.email}}</option>
-          </select>
+          <option class="main-input" *ngFor="let user of users" [ngValue]="user._id">{{user.email}}</option>
+        </select>
       </div>
 
-      <div><input class="main-input" type="notes" placeholder="notes" name="notes" [(ngModel)]="newTimetable.notes"></div>
+      <div>
+        <input class="main-input" type="notes" placeholder="notes" name="notes" [(ngModel)]="newTimetable.notes">
+      </div>
 
       <button class="main-button" type="submit" [disabled]="!createForm.valid"> Save </button>
     </form>

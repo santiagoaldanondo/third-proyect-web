@@ -15,7 +15,7 @@ export class ClientService {
   constructor(private apollo: Apollo) { }
 
   getClients(): ApolloQueryObservable<any> {
-    const getClients = graphqlTag`query {
+    const getClients = graphqlTag`query getClients{
         getClients {
           _id
           firstName
@@ -60,7 +60,7 @@ export class ClientService {
   }
 
   createClient(client: Client): Observable<any> {
-    const mutation = graphqlTag`mutation(
+    const mutation = graphqlTag`mutation createClient(
         $firstName: String!,
         $lastName: String!,
         $email: String,
@@ -102,7 +102,7 @@ export class ClientService {
   }
 
   updateClient(client: Client): Observable<any> {
-    const mutation = graphqlTag`mutation(
+    const mutation = graphqlTag`mutation updateClient(
         $_id: String!,
         $firstName: String!,
         $lastName: String!,

@@ -34,10 +34,10 @@
   </thead>
   <tbody>
     <tr *ngFor="let user of mf.data">
-      <td>{{user.firstName}}</td>
-      <td>{{user.lastName}}</td>
-      <td>{{user.email}}</td>
-      <td>{{user.isAdmin}}</td>
+      <td>{{user?.firstName}}</td>
+      <td>{{user?.lastName}}</td>
+      <td>{{user?.email}}</td>
+      <td>{{user?.isAdmin}}</td>
     </tr>
   </tbody>
   <tfoot>
