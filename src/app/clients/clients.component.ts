@@ -1,6 +1,9 @@
 import { ModalService } from './../shared/services/modal.service';
 import { Component, OnInit } from '@angular/core';
 
+import { Subscription } from 'rxjs/Subscription';
+import { ApolloQueryObservable } from 'apollo-angular';
+
 import { ClientService } from './../shared/services/client.service';
 import { Client } from './../shared/models/client.model';
 import { InsuranceService } from './../shared/services/insurance.service';
@@ -13,6 +16,7 @@ import { Insurance } from './../shared/models/insurance.model';
 })
 export class ClientsComponent implements OnInit {
 
+  loading: boolean = true
   clients: Array<Client>
   insurances: Array<Insurance>
   newClient: Client = new Client
@@ -23,16 +27,33 @@ export class ClientsComponent implements OnInit {
   patternPhone: string
   patternInsuranceNumber: string
   patternInsurance: string
+  clientObs: ApolloQueryObservable<any>;
+  clientSub: Subscription;
+  subscriptionSub: Subscription;
 
   constructor(private clientService: ClientService, private insuranceService: InsuranceService, private modalService: ModalService) { }
 
   ngOnInit(): void {
-    this.loadClients()
-  }
-
-  loadClients(): void {
-    this.clientService.getClients().subscribe(({ data, loading }) => {
+    this.clientObs = this.clientService.getClients()
+    this.clientSub = this.clientObs.subscribe(({ data, loading }) => {
       this.clients = data.getClients;
+      this.loading = loading;
+    }, (error) => {
+      console.log('there was an error sending the query', error);
+    })
+
+    this.subscriptionSub = this.clientService.clientAdded().subscribe({
+      next: (data) => {
+        const newClient: Client = data.clientAdded;
+        this.clientObs.updateQuery((prev) => {
+          const prevClients: Array<Client> = JSON.parse(JSON.stringify(prev.getClients));
+          prevClients.push(newClient)
+          return { getClients: prevClients }
+        });
+      },
+      error(err: any): void {
+        console.error('err', err);
+      }
     });
   }
 
@@ -43,10 +64,11 @@ export class ClientsComponent implements OnInit {
   }
 
   onSubmitCreate(createForm): void {
-    this.clientService.createClient(this.newClient).subscribe(data => {
-      this.loadClients()
+    this.clientService.createClient(this.newClient).subscribe(() => {
+      this.modalService.close()
       createForm.reset()
-      window.location.reload()
+    }, (error) => {
+      console.log('there was an error sending the query', error);
     })
   }
 

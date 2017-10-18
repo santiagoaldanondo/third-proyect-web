@@ -49,6 +49,44 @@ export class TimetableService {
     })
   }
 
+  timetableAdded(): Observable<any> {
+    const timetableAdded = graphqlTag`
+    subscription timetableAdded {
+      timetableAdded {
+        __typename
+        _id
+        date
+        client {
+          _id
+          firstName
+          lastName
+          phone
+          insurance {
+            _id
+            name
+          }
+        }
+        treatment {
+          _id
+          description
+        }
+        user {
+          _id
+          firstName
+          lastName
+          email
+        }
+        notes
+        info
+      }
+    }
+  `;
+    return this.apollo.subscribe({
+      query: timetableAdded,
+      variables: {}
+    })
+  }
+
   createTimetable(timetable: Timetable): Observable<any> {
     const mutation = graphqlTag`mutation(
       $date: Date!,
@@ -102,45 +140,6 @@ export class TimetableService {
         notes: timetable.notes,
         info: timetable.info,
       }
-    })
-  }
-
-  timetableAdded(): Observable<any> {
-    const timetableAdded = graphqlTag`
-    subscription timetableAdded {
-      timetableAdded {
-        __typename
-        _id
-        date
-        client {
-          _id
-          firstName
-          lastName
-          phone
-          insurance {
-            _id
-            name
-          }
-        }
-        treatment {
-          _id
-          description
-        }
-        user {
-          _id
-          firstName
-          lastName
-          email
-        }
-        notes
-        info
-      }
-    }
-  `;
-
-    return this.apollo.subscribe({
-      query: timetableAdded,
-      variables: {}
     })
   }
 

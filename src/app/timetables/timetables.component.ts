@@ -78,12 +78,6 @@ export class TimetablesComponent implements OnInit {
     this.chosenClient.insurance = ''
   }
 
-  loadTimetables(): void {
-    this.timetableService.getTimetables().subscribe(({ data, loading }) => {
-      this.timetables = data.getTimetables;
-    });
-  }
-
   loadTreatments(): void {
     this.treatmentService.getTreatments().subscribe(({ data, loading }) => {
       this.treatments = data.getTreatments;

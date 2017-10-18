@@ -38,7 +38,6 @@ export class InsuranceService {
       }
     }
   `;
-
     return this.apollo.subscribe({
       query: insuranceAdded,
       variables: {}

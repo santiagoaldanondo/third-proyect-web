@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-import { Apollo } from 'apollo-angular';
+import { Apollo, ApolloQueryObservable } from 'apollo-angular';
 import graphqlTag from 'graphql-tag';
 
 import { Client } from './../models/client.model';
@@ -14,7 +14,7 @@ export class ClientService {
 
   constructor(private apollo: Apollo) { }
 
-  getClients(): Observable<any> {
+  getClients(): ApolloQueryObservable<any> {
     const getClients = graphqlTag`query {
         getClients {
           _id
@@ -32,6 +32,30 @@ export class ClientService {
 
     return this.apollo.watchQuery({
       query: getClients
+    })
+  }
+
+  clientAdded(): Observable<any> {
+    const clientAdded = graphqlTag`
+    subscription clientAdded {
+      clientAdded {
+        __typename
+        _id
+        firstName
+        lastName
+        email
+        phone
+        insuranceNumber
+        insurance {
+          _id
+          name
+        }
+      }
+    }
+  `;
+    return this.apollo.subscribe({
+      query: clientAdded,
+      variables: {}
     })
   }
 
