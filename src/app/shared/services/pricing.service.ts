@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-import { Apollo } from 'apollo-angular';
+import { Apollo, ApolloQueryObservable } from 'apollo-angular';
 import graphqlTag from 'graphql-tag';
 
 import { Pricing } from './../models/pricing.model';
@@ -14,7 +14,7 @@ export class PricingService {
 
   constructor(private apollo: Apollo) { }
 
-  getPricings(): Observable<any> {
+  getPricings(): ApolloQueryObservable<any> {
     const getPricings = graphqlTag`query {
       getPricings {
         _id
@@ -64,7 +64,24 @@ export class PricingService {
         treatment: pricing.treatment,
         insurance: pricing.insurance,
         price: pricing.price
-      }
+      },
+      optimisticResponse: {
+        __typename: 'Mutation',
+        createPricing: {
+          __typename: 'Pricing',
+          _id: null,
+          treatment: pricing.treatment,
+          insurance: pricing.insurance,
+          price: pricing.price
+        },
+      },
+      updateQueries: {
+        getPricings: (prev, { mutationResult }) => {
+          const newPricing: Pricing = mutationResult.data.createPricing;
+          const prevPricings: Array<Pricing> = prev.getPricings;
+          return { getPricings: prevPricings }
+        },
+      },
     })
   }
 

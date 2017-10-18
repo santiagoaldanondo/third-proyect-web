@@ -14,7 +14,7 @@ import { Insurance } from './../shared/models/insurance.model';
 })
 export class InsurancesComponent implements OnInit {
 
-  loading = true
+  loading: boolean = true
   insurances: Array<Insurance>
   newInsurance: Insurance = new Insurance
   patternName: string
@@ -32,20 +32,6 @@ export class InsurancesComponent implements OnInit {
     }, (error) => {
       console.log('there was an error sending the query', error);
     })
-
-    this.subscriptionSub = this.insuranceService.insuranceAdded().subscribe({
-      next: (data) => {
-        const newInsurance: Insurance = data.insuranceAdded;
-        this.insuranceObs.updateQuery((prev) => {
-          const prevInsurances: Array<Insurance> = JSON.parse(JSON.stringify(prev.getInsurances));
-          prevInsurances.push(newInsurance)
-          return { getInsurances: prevInsurances }
-        });
-      },
-      error(err: any): void {
-        console.error('err', err);
-      }
-    });
   }
 
   onSubmitCreate(createForm): void {

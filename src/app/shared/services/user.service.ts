@@ -1,9 +1,7 @@
-
-import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-import { Apollo } from 'apollo-angular';
+import { Apollo, ApolloQueryObservable } from 'apollo-angular';
 import graphqlTag from 'graphql-tag';
 
 import { User } from './../models/user.model';
@@ -15,7 +13,7 @@ export class UserService {
 
   constructor(private apollo: Apollo) { }
 
-  getUsers(): Observable<any> {
+  getUsers(): ApolloQueryObservable<any> {
     const getUsers = graphqlTag`query {
       getUsers {
         _id
@@ -61,7 +59,26 @@ export class UserService {
         email: user.email,
         password: user.password,
         isAdmin: user.isAdmin
-      }
+      },
+      optimisticResponse: {
+        __typename: 'Mutation',
+        createUser: {
+          __typename: 'User',
+          _id: null,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          password: user.password,
+          isAdmin: user.isAdmin
+        },
+      },
+      updateQueries: {
+        getUsers: (prev, { mutationResult }) => {
+          const newUser: User = mutationResult.data.createUser;
+          const prevUsers: Array<User> = prev.getUsers;
+          return { getUsers: prevUsers }
+        },
+      },
     })
   }
 

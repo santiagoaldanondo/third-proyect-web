@@ -1,8 +1,7 @@
-
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-import { Apollo } from 'apollo-angular';
+import { Apollo, ApolloQueryObservable } from 'apollo-angular';
 import graphqlTag from 'graphql-tag';
 
 import { Treatment } from './../models/treatment.model';
@@ -14,7 +13,7 @@ export class TreatmentService {
 
   constructor(private apollo: Apollo) { }
 
-  getTreatments(): Observable<any> {
+  getTreatments(): ApolloQueryObservable<any> {
     const getTreatments = graphqlTag`query {
       getTreatments {
         _id
@@ -52,7 +51,24 @@ export class TreatmentService {
         branch: treatment.branch,
         code: treatment.code,
         description: treatment.description
-      }
+      },
+      optimisticResponse: {
+        __typename: 'Mutation',
+        createTreatment: {
+          __typename: 'Treatment',
+          _id: null,
+          branch: treatment.branch,
+          code: treatment.code,
+          description: treatment.description
+        },
+      },
+      updateQueries: {
+        getTreatments: (prev, { mutationResult }) => {
+          const newTreatment: Treatment = mutationResult.data.createTreatment;
+          const prevTreatments: Array<Treatment> = prev.getTreatments;
+          return { getTreatments: prevTreatments }
+        },
+      },
     })
   }
 

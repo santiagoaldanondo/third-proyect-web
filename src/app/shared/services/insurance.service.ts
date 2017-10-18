@@ -1,10 +1,8 @@
-
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 import { Apollo, ApolloQueryObservable } from 'apollo-angular';
 import graphqlTag from 'graphql-tag';
-import * as _ from 'lodash'
 
 import { Insurance } from './../models/insurance.model';
 
@@ -25,22 +23,6 @@ export class InsuranceService {
 
     return this.apollo.watchQuery({
       query: getInsurances
-    })
-  }
-
-  insuranceAdded(): Observable<any> {
-    const insuranceAdded = graphqlTag`
-    subscription insuranceAdded {
-      insuranceAdded {
-        __typename
-        _id
-        name
-      }
-    }
-  `;
-    return this.apollo.subscribe({
-      query: insuranceAdded,
-      variables: {}
     })
   }
 
@@ -71,17 +53,8 @@ export class InsuranceService {
       },
       updateQueries: {
         getInsurances: (prev, { mutationResult }) => {
-          console.log("update")
           const newInsurance: Insurance = mutationResult.data.createInsurance;
           const prevInsurances: Array<Insurance> = prev.getInsurances;
-          if (newInsurance) {
-            const repeatedInsurance: Array<Insurance> = _.find(prevInsurances, function (o) {
-              return o._id === newInsurance._id;
-            })
-            if (!repeatedInsurance) {
-              prevInsurances.push(newInsurance)
-            }
-          }
           return { getInsurances: prevInsurances }
         },
       },

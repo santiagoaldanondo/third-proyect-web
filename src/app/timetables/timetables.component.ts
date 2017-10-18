@@ -1,4 +1,3 @@
-
 import { ModalService } from './../shared/services/modal.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -23,7 +22,7 @@ import { Pricing } from './../shared/models/pricing.model';
 })
 export class TimetablesComponent implements OnInit {
 
-  loading = true
+  loading: boolean = true
   timetables: Array<Timetable>
   clients: Array<Client>
   pricings: Array<Pricing>
