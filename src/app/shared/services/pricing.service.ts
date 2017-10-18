@@ -77,6 +77,7 @@ export class PricingService {
       },
       updateQueries: {
         getPricings: (prev, { mutationResult }) => {
+          console.log(mutationResult)
           const newPricing: Pricing = mutationResult.data.createPricing;
           const prevPricings: Array<Pricing> = prev.getPricings;
           return { getPricings: prevPricings }

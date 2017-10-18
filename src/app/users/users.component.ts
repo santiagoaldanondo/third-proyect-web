@@ -16,7 +16,7 @@ export class UsersComponent implements OnInit {
 
   loading: boolean = true
   users: Array<User>
-  newUser: User = new User;
+  newUser: User = new User();
   patternFirstName: string
   patternLastName: string
   patternEmail: string
@@ -27,6 +27,7 @@ export class UsersComponent implements OnInit {
   constructor(private userService: UserService, private modalService: ModalService) { }
 
   ngOnInit(): void {
+    this.newUser.isAdmin = false
     this.userObs = this.userService.getUsers()
     this.userSub = this.userObs.subscribe(({ data, loading }) => {
       this.users = data.getUsers;
@@ -37,6 +38,7 @@ export class UsersComponent implements OnInit {
   }
 
   onSubmitCreate(createForm): void {
+    console.log(this.newUser)
     this.userService.addToAccount(this.newUser).subscribe(() => {
       this.modalService.close()
       createForm.reset()

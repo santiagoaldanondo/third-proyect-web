@@ -46,6 +46,7 @@ export class ClientsComponent implements OnInit {
       next: (data) => {
         const newClient: Client = data.clientAdded;
         this.clientObs.updateQuery((prev) => {
+          console.log("pepe")
           const prevClients: Array<Client> = JSON.parse(JSON.stringify(prev.getClients));
           prevClients.push(newClient)
           return { getClients: prevClients }

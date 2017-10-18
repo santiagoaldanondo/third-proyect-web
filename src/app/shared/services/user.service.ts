@@ -62,7 +62,7 @@ export class UserService {
       },
       optimisticResponse: {
         __typename: 'Mutation',
-        createUser: {
+        addToAccount: {
           __typename: 'User',
           _id: null,
           firstName: user.firstName,
@@ -74,7 +74,7 @@ export class UserService {
       },
       updateQueries: {
         getUsers: (prev, { mutationResult }) => {
-          const newUser: User = mutationResult.data.createUser;
+          const newUser: User = mutationResult.data.addToAccount;
           const prevUsers: Array<User> = prev.getUsers;
           return { getUsers: prevUsers }
         },
