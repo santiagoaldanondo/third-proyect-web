@@ -29,7 +29,7 @@
 
 @media(max-width:800px) {
     .fixed-width {
-        width: 20vw;
+        width: 18vw;
         height: 40px;
         font-size: 14px;
     }

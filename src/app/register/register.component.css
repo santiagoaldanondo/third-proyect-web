@@ -37,3 +37,7 @@
     margin: 3vh auto;
     padding: 6px 10px;
 }
+
+.error {
+    color: #eb1017;
+}

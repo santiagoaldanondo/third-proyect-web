@@ -14,5 +14,7 @@
   </fieldset>
 
   <button class="main-button" type="submit" [disabled]="!loginForm.valid">Login</button>
-  <p class="error" *ngIf="error">{{ error }}</p>
+    <p class="error" *ngFor="let error of errors">
+      {{error.message}}
+    </p>
 </form>

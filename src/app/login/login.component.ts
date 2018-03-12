@@ -10,7 +10,7 @@ import { AuthService } from './../shared/services/auth.service'
 })
 export class LoginComponent implements OnInit {
   user: User = new User();
-  error: string;
+  errors: string;
 
   constructor(private authService: AuthService, private router: Router) { }
 
@@ -21,6 +21,9 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.user).subscribe(data => {
       this.authService.authenticate(JSON.parse(JSON.stringify(data)).data.login)
       this.router.navigate(['/account']);
-    });
+    },
+    err => {
+      this.errors = err.graphQLErrors;
+    })
   }
 }
